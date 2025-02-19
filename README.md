@@ -4,7 +4,7 @@ MixSmart is a new cocktail recipe platform that combines advanced AI-powered gen
 
 ## TODO
 
-- [ ] Implement BAC calculation
+- [x] Implement BAC calculation
 - [x] Document OOP usage
 - [ ] Double check input validation implementation
 - [ ] Implement AI recipe generation with Gemini API?, can't be used locally without exposing API key (Optional)
