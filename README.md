@@ -5,12 +5,12 @@ MixSmart is a new cocktail recipe platform that combines advanced AI-powered gen
 ## TODO
 
 - [ ] Implement BAC calculation
-- [ ] Document OOP usage
-- [ ] Implement input validation
-- [ ] Implement AI recipe generation with Gemini API?, can't be used locally without exposing API key
-- [ ] Implement Restful endpoints with hono and persistence layer with drizzle and postgres
-- [ ] Implement unit tests with bun:test
-- [ ] Implement Github Actions
+- [x] Document OOP usage
+- [ ] Double check input validation implementation
+- [ ] Implement AI recipe generation with Gemini API?, can't be used locally without exposing API key (Optional)
+- [ ] Implement Restful endpoints with hono and persistence layer with drizzle and postgres (Optional)
+- [ ] Implement unit tests with bun:test (Optional)
+- [ ] Implement Github Actions (Optional)
 
 ## Scripts
 

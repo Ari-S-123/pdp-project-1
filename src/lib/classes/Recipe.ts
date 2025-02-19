@@ -3,6 +3,7 @@ import IIngredient from "../interfaces/IIngredient";
 import IStep from "../interfaces/IStep";
 import { TasteProfile } from "../enums/TasteProfile";
 import { Visibility } from "../enums/Visibility";
+import { User } from "./User";
 
 /**
  * @class Recipe
@@ -155,11 +156,40 @@ export class Recipe implements IRecipe {
 
   /**
    * @description Calculates the Blood Alcohol Content for a user after consuming this recipe.
+   * Calculate using the Widmark Equation
+   * (Dose in grams/(Body weight in grams x Distribution ratio "r"))x100 where r(male)=.68 r(female)=.55 and assuming an average constant rate of -0.016 BAC per hour.
    * @param {string} userId The ID of the user to calculate BAC for.
    * @returns {number} The calculated BAC value.
    */
   calculateBAC(userId: string): number {
-    // TODO: Implement BAC calculation
-    return 0;
+    // TODO: Implement BAC calculation, needs to be refactored to use User instance instead of userId
+    // temporary example user
+    let exampleUser = new User(
+      "123",
+      "John Doe",
+      "password",
+      false,
+      new Date(),
+      "12345",
+      "male",
+      70,
+      "john.doe@example.com",
+      "1234567890",
+      "https://example.com/profile.jpg",
+      [],
+      [],
+      []
+    );
+
+    const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
+      return acc + ingredient.volumeInMl * ingredient.abv;
+    }, 0);
+
+    const bodyWeightInGrams = exampleUser.weightInKg * 1000;
+    const distributionRatio = exampleUser.biologicalSex === "male" ? 0.68 : 0.55;
+
+    const bac = (doseInGrams / (bodyWeightInGrams * distributionRatio)) * 100 * -0.016;
+
+    return bac;
   }
 }
