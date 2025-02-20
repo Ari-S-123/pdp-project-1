@@ -1,4 +1,5 @@
 import { FriendRequestStatus } from "../enums/FriendRequestStatus";
+import IUser from "./IUser";
 
 /**
  * @interface IFriendRequest
@@ -6,14 +7,14 @@ import { FriendRequestStatus } from "../enums/FriendRequestStatus";
  */
 export default interface IFriendRequest {
   /**
-   * @returns {string} The ID of the user that sent the friend request.
+   * @returns {IUser} The user that sent the friend request.
    */
-  get senderUserId(): string;
+  get senderUser(): IUser;
 
   /**
-   * @returns {string} The ID of the user that received the friend request.
+   * @returns {IUser} The user that received the friend request.
    */
-  get receiverUserId(): string;
+  get receiverUser(): IUser;
 
   /**
    * @returns {Date} The date and time the friend request was created.

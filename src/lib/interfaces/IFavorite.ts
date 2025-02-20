@@ -1,13 +1,16 @@
+import IRecipe from "./IRecipe";
+import IUser from "./IUser";
+
 export default interface IFavorite {
   /**
-   * @returns {string} The ID of the recipe that the favorite belongs to.
+   * @returns {IRecipe} The recipe that the favorite belongs to.
    */
-  get recipeId(): string;
+  get recipe(): IRecipe;
 
   /**
-   * @returns {string} The ID of the user that favorited the recipe.
+   * @returns {IUser} The user that favorited the recipe.
    */
-  get userId(): string;
+  get user(): IUser;
 
   /**
    * @returns {Date} The date and time of the favorite.

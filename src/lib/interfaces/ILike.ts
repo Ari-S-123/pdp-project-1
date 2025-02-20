@@ -1,17 +1,20 @@
+import IRecipe from "./IRecipe";
+import IUser from "./IUser";
+
 /**
  * @interface ILike
  * @description Represents a like on a recipe.
  */
 export default interface ILike {
   /**
-   * @returns {string} The ID of the recipe that the like belongs to.
+   * @returns {IRecipe} The recipe that the like belongs to.
    */
-  get recipeId(): string;
+  get recipe(): IRecipe;
 
   /**
-   * @returns {string} The ID of the user that liked the recipe.
+   * @returns {IUser} The user that liked the recipe.
    */
-  get userId(): string;
+  get user(): IUser;
 
   /**
    * @returns {Date} The date and time of the like.

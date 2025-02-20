@@ -1,3 +1,5 @@
+import IUser from "./IUser";
+
 /**
  * @interface IMessage
  * @description Represents a message.
@@ -19,14 +21,14 @@ export default interface IMessage {
   get attachmentUrls(): string[];
 
   /**
-   * @returns {string} The ID of the user that sent the message.
+   * @returns {IUser} The user that sent the message.
    */
-  get senderUserId(): string;
+  get sender(): IUser;
 
   /**
-   * @returns {string} The ID of the user that received the message.
+   * @returns {IUser} The user that received the message.
    */
-  get receiverUserId(): string;
+  get receiver(): IUser;
 
   /**
    * @returns {boolean} Whether the message is read by the receiver.

@@ -2,6 +2,7 @@ import { TasteProfile } from "../enums/TasteProfile";
 import { Visibility } from "../enums/Visibility";
 import IIngredient from "./IIngredient";
 import IStep from "./IStep";
+import IUser from "./IUser";
 
 /**
  * @interface IRecipe
@@ -9,9 +10,9 @@ import IStep from "./IStep";
  */
 export default interface IRecipe {
   /**
-   * @returns {string} The ID of the creator of the recipe.
+   * @returns {IUser} The creator of the recipe.
    */
-  get creatorUserId(): string;
+  get creator(): IUser;
 
   /**
    * @returns {string} The title of the recipe.
@@ -84,6 +85,12 @@ export default interface IRecipe {
   set timeLastUpdated(timeLastUpdated: Date);
 
   /**
+   * @description Sets the ingredients of the recipe.
+   * @param {IIngredient[]} ingredients The ingredients of the recipe.
+   */
+  set ingredients(ingredients: IIngredient[]);
+
+  /**
    * @description Sets the steps of the recipe.
    * @param {IStep[]} steps The steps of the recipe.
    */
@@ -91,8 +98,8 @@ export default interface IRecipe {
 
   /**
    * @description Calculates the BAC of the user after consuming the recipe.
-   * @param {string} userId The ID of the user.
+   * @param {IUser} user The user.
    * @returns {number} The BAC of the user after consuming the recipe.
    */
-  calculateBAC(userId: string): number;
+  calculateBAC(user: IUser): number;
 }

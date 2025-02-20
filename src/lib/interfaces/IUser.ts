@@ -2,6 +2,7 @@ import IFriendRequest from "./IFriendRequest";
 import IMessage from "./IMessage";
 import IComment from "./IComment";
 import IRecipe from "./IRecipe";
+
 /**
  * @interface IUser
  * @description Represents a user.
@@ -63,14 +64,26 @@ export default interface IUser {
   get profilePicUrl(): string;
 
   /**
-   * @returns {string[]} The IDs of the user's friends.
+   * @returns {IUser[]} The user's friends.
    */
-  get friendUserIds(): string[];
+  get friends(): IUser[];
 
   /**
    * @returns {IFriendRequest[]} The friend requests of the user.
    */
   get friendRequests(): IFriendRequest[];
+
+  /**
+   * @description Adds a friend to the user.
+   * @param {IUser} user The user to add as a friend.
+   */
+  addFriend(user: IUser): void;
+
+  /**
+   * @description Removes a friend from the user.
+   * @param {IUser} user The user to remove as a friend.
+   */
+  removeFriend(user: IUser): void;
 
   /**
    * @returns {IMessage[]} The messages of the user.

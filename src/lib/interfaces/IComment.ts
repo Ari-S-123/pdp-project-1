@@ -1,17 +1,20 @@
+import IRecipe from "./IRecipe";
+import IUser from "./IUser";
+
 /**
  * @interface IComment
  * @description Represents a comment on a recipe.
  */
 export default interface IComment {
   /**
-   * @returns {string} The ID of the recipe that the comment belongs to.
+   * @returns {IRecipe} The recipe that the comment belongs to.
    */
-  get recipeId(): string;
+  get recipe(): IRecipe;
 
   /**
-   * @returns {string} The ID of the user that made the comment.
+   * @returns {IUser} The user that made the comment.
    */
-  get userId(): string;
+  get user(): IUser;
 
   /**
    * @returns {string} The text of the comment.

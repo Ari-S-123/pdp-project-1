@@ -1,12 +1,14 @@
+import IRecipe from "./IRecipe";
+
 /**
  * @interface IIngredient
  * @description Represents an ingredient in a recipe.
  */
 export default interface IIngredient {
   /**
-   * @returns {string} The ID of the recipe that the ingredient belongs to.
+   * @returns {IRecipe} The recipe that the ingredient belongs to.
    */
-  get recipeId(): string;
+  get recipe(): IRecipe;
 
   /**
    * @returns {string} The name of the ingredient.
@@ -41,9 +43,10 @@ export default interface IIngredient {
    */
   set abv(abv: number);
 
-  /**
-   * @description Finds the local source of the ingredient.
-   * @returns {string} The local source of the ingredient.
-   */
-  findLocalSource(): string;
+  // Can't be implemented and also be tested locally by other people without either exposing my API key or forcing graders to get their own API key.
+  // /**
+  //  * @description Finds the local source of the ingredient.
+  //  * @returns {string} The local source of the ingredient.
+  //  */
+  // findLocalSource(): string;
 }

@@ -1,12 +1,14 @@
+import IRecipe from "./IRecipe";
+
 /**
  * @interface IStep
  * @description Represents a step in a recipe.
  */
 export default interface IStep {
   /**
-   * @returns {string} The ID of the recipe that the step belongs to.
+   * @returns {IRecipe} The recipe that the step belongs to.
    */
-  get recipeId(): string;
+  get recipe(): IRecipe;
 
   /**
    * @returns {number} The number of the step.
