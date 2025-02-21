@@ -311,10 +311,235 @@ export class Recipe implements IRecipe {
 
 ## Design Patterns
 
-The codebase primarily uses interface-based design and composition rather than complex design patterns. The main patterns evident in the codebase are:
+The codebase implements several design patterns that demonstrate good Object-Oriented Programming practices:
 
-1. Interface-based Programming: All classes implement interfaces that define their contracts
-2. Composition over Inheritance: Most relationships use composition (e.g., Recipe has Ingredients and Steps)
-3. Immutable Value Objects: Classes like Like and Comment are effectively immutable after creation
+### 1. Builder Pattern
 
-While more complex patterns like Observer, Builder, or Factory could be beneficial additions to the codebase, they are not currently implemented. The focus has been on maintaining clean, simple, and maintainable code through good OOP practices and SOLID principles.
+The Builder pattern is used in `UserBuilder` to create complex `User` objects with many optional parameters in a fluent, readable way.
+
+Example from `UserBuilder`:
+
+```typescript
+export class UserBuilder {
+  private _username: string;
+  private _password: string;
+  private _is2FAEnabled: boolean;
+  // ... other private fields ...
+
+  public withUsername(username: string): UserBuilder {
+    if (!username) {
+      throw new Error("No username provided.");
+    }
+    this._username = username;
+    return this;
+  }
+
+  public withPassword(password: string): UserBuilder {
+    if (!password) {
+      throw new Error("No password provided.");
+    }
+    this._password = password;
+    return this;
+  }
+  // ... other builder methods ...
+}
+
+// Usage:
+const user = new UserBuilder()
+  .withUsername("john_doe")
+  .withPassword("secure123")
+  .with2FAEnabled(true)
+  .withEmail("john@example.com")
+  .build();
+```
+
+This is good OOP because it:
+
+- Separates object construction from its representation
+- Provides input validation at each step
+- Makes complex object creation readable and maintainable
+- Allows for optional parameters without constructor overloading
+
+Bad Example (Breaking Builder Pattern):
+
+```typescript
+// Bad: Direct object construction with many parameters
+class User {
+  constructor(
+    username?: string,
+    password?: string,
+    is2FAEnabled?: boolean,
+    zipCode?: string
+    // ... 10 more optional parameters ...
+  ) {
+    // No validation, confusing parameter order
+    this.username = username || "";
+    this.password = password || "";
+    // ... and so on
+  }
+}
+```
+
+### 2. Immutable Object Pattern
+
+The Immutable Object pattern is implemented in social interaction classes like `Like` and `Favorite`, where objects are created once and never modified.
+
+Example from `Like`:
+
+```typescript
+export class Like implements ILike {
+  private readonly _recipe: IRecipe;
+  private readonly _user: IUser;
+  private readonly _timeCreated: Date;
+
+  public constructor(recipe: IRecipe, user: IUser) {
+    this._recipe = recipe;
+    this._user = user;
+    this._timeCreated = new Date();
+  }
+
+  public get recipe(): IRecipe {
+    return this._recipe;
+  }
+
+  public get user(): IUser {
+    return this._user;
+  }
+
+  public get timeCreated(): Date {
+    return this._timeCreated;
+  }
+}
+```
+
+This is good OOP because it:
+
+- Ensures thread safety
+- Prevents state inconsistency
+- Makes objects predictable and reliable
+- Simplifies debugging and testing
+
+Bad Example (Breaking Immutability):
+
+```typescript
+// Bad: Mutable like object
+class MutableLike {
+  public recipe: IRecipe;
+  public user: IUser;
+  public timeCreated: Date;
+
+  setNewUser(user: IUser) {
+    this.user = user; // Allowing mutation breaks the concept of a "like"
+    this.timeCreated = new Date(); // Inconsistent state
+  }
+}
+```
+
+### 3. Template Method Pattern
+
+The Template Method pattern is used in the `Recipe` and `RecipeVersion` classes, where `RecipeVersion` extends `Recipe` and inherits its core functionality while adding version-specific behavior.
+
+Example:
+
+```typescript
+export class Recipe implements IRecipe {
+  public calculateBAC(user: IUser): number {
+    const ethanolDensity = 0.78945;
+    const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
+      const alcoholMl = ingredient.volumeInMl * (ingredient.abv / 100);
+      return acc + alcoholMl * ethanolDensity;
+    }, 0);
+    const bodyWeightInGrams = user.weightInKg * 1000;
+    const widmarkConstant = user.biologicalSex === BiologicalSex.MALE ? 0.68 : 0.55;
+    return (doseInGrams / (bodyWeightInGrams * widmarkConstant)) * 100;
+  }
+}
+
+export class RecipeVersion extends Recipe {
+  private readonly _versionNumber: number;
+
+  public get versionNumber(): number {
+    return this._versionNumber;
+  }
+}
+```
+
+This is good OOP because it:
+
+- Allows code reuse through inheritance
+- Maintains the Liskov Substitution Principle
+- Provides a clear extension point for variations
+- Keeps common functionality in one place
+
+Bad Example (Breaking Template Method):
+
+```typescript
+// Bad: Overriding template method inconsistently
+class BrokenRecipeVersion extends Recipe {
+  calculateBAC(user: IUser): number {
+    // Breaking the contract by returning invalid values
+    return Math.random(); // Completely different implementation
+  }
+
+  get ingredients(): IIngredient[] {
+    return []; // Breaking parent's behavior
+  }
+}
+```
+
+### 4. Observer Pattern
+
+The Observer pattern is implemented through the relationship between `Recipe` and its associated entities (`Like`, `Comment`, `Favorite`), where these entities observe and track changes to recipes.
+
+Example of the pattern in the relationships:
+
+```typescript
+// Recipe acts as the subject
+export class Recipe implements IRecipe {
+  private _ingredients: IIngredient[] = [];
+  private _steps: IStep[] = [];
+
+  // State changes are exposed through getters/setters
+  public set ingredients(ingredients: IIngredient[]) {
+    this._ingredients = ingredients;
+  }
+}
+
+// Like acts as an observer
+export class Like implements ILike {
+  private readonly _recipe: IRecipe;
+  private readonly _timeCreated: Date;
+
+  constructor(recipe: IRecipe, user: IUser) {
+    this._recipe = recipe;
+    this._timeCreated = new Date();
+  }
+}
+```
+
+This is good OOP because it:
+
+- Establishes loose coupling between recipes and their observers
+- Allows for easy addition of new observer types
+- Maintains consistency across related objects
+- Supports the Open/Closed Principle
+
+Bad Example (Breaking Observer Pattern):
+
+```typescript
+// Bad: Tight coupling and direct manipulation
+class TightlyCoupledRecipe {
+  private likes: Like[] = [];
+  private comments: Comment[] = [];
+
+  addLike(user: IUser) {
+    // Directly managing observers
+    this.likes.push(new Like(this, user));
+    this.updateDatabase();
+    this.notifyUI();
+    // Tightly coupled to specific implementations
+  }
+}
+```
+
+These patterns demonstrate how the codebase uses OOP principles to create maintainable, extensible, and robust code. Each pattern serves a specific purpose and helps manage complexity in different aspects of the system.
