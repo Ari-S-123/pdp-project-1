@@ -85,6 +85,7 @@ describe("Recipe", () => {
     testRecipe.steps = [step1, step2, step3];
     expect(testRecipe.steps).toEqual([step1, step2, step3]);
     expect(testRecipe.steps.length).toBe(3);
+    expect(() => (testRecipe.steps = [step1, step2, step3, step3])).toThrow("Steps have duplicate step numbers");
   });
 
   test("BAC calculation works correctly", () => {

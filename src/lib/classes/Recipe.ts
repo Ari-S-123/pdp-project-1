@@ -153,6 +153,12 @@ export class Recipe implements IRecipe {
    * @param {IStep[]} steps The new steps of the recipe.
    */
   public set steps(steps: IStep[]) {
+    // Check if steps have duplicate step numbers
+    const stepNumbers = steps.map((step) => step.stepNumber);
+    const uniqueStepNumbers = new Set(stepNumbers);
+    if (stepNumbers.length !== uniqueStepNumbers.size) {
+      throw new Error("Steps have duplicate step numbers");
+    }
     this._steps = steps;
   }
 
