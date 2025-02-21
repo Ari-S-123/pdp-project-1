@@ -47,15 +47,10 @@ describe("Step", () => {
     }).toThrow("No description provided.");
   });
 
-  test("step properties remain unchanged after invalid update", () => {
-    const originalDescription = testStep.description;
-
-    try {
+  test("step properties throw errors for invalid updates", () => {
+    expect(() => {
       testStep.description = "";
-    } catch {
-      // Expected error
-    }
-    expect(testStep.description).toBe(originalDescription);
+    }).toThrow("No description provided.");
   });
 
   test("step number is immutable", () => {

@@ -66,30 +66,17 @@ describe("Ingredient", () => {
     }).toThrow("Invalid alcohol by volume percentage.");
   });
 
-  test("ingredient properties remain unchanged after invalid updates", () => {
-    const originalName = testIngredient.name;
-    const originalVolume = testIngredient.volumeInMl;
-    const originalAbv = testIngredient.abv;
-
-    try {
+  test("ingredient properties throw errors for invalid updates", () => {
+    expect(() => {
       testIngredient.name = "";
-    } catch {
-      // Expected error
-    }
-    expect(testIngredient.name).toBe(originalName);
+    }).toThrow("No name provided.");
 
-    try {
+    expect(() => {
       testIngredient.volumeInMl = -1;
-    } catch {
-      // Expected error
-    }
-    expect(testIngredient.volumeInMl).toBe(originalVolume);
+    }).toThrow("Volume in milliliters cannot be negative.");
 
-    try {
+    expect(() => {
       testIngredient.abv = 101;
-    } catch {
-      // Expected error
-    }
-    expect(testIngredient.abv).toBe(originalAbv);
+    }).toThrow("Invalid alcohol by volume percentage.");
   });
 });

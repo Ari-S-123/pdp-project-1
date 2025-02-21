@@ -54,15 +54,10 @@ describe("FriendRequest", () => {
     }).toThrow("No status provided.");
   });
 
-  test("friend request properties remain unchanged after invalid update", () => {
-    const originalStatus = testFriendRequest.status;
-
-    try {
+  test("friend request properties throw errors for invalid updates", () => {
+    expect(() => {
       testFriendRequest.status = null as unknown as FriendRequestStatus;
-    } catch {
-      // Expected error
-    }
-    expect(testFriendRequest.status).toBe(originalStatus);
+    }).toThrow("No status provided.");
   });
 
   test("sender, receiver, and timeCreated are immutable", () => {

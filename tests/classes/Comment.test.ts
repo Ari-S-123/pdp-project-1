@@ -73,23 +73,14 @@ describe("Comment", () => {
     }).toThrow("No timestamp provided.");
   });
 
-  test("comment properties remain unchanged after invalid updates", () => {
-    const originalText = testComment.text;
-    const originalTimeLastEdited = testComment.timeLastEdited;
-
-    try {
+  test("comment properties throw errors for invalid updates", () => {
+    expect(() => {
       testComment.text = "";
-    } catch {
-      // Expected error
-    }
-    expect(testComment.text).toBe(originalText);
+    }).toThrow("No text provided.");
 
-    try {
+    expect(() => {
       testComment.timeLastEdited = null as unknown as Date;
-    } catch {
-      // Expected error
-    }
-    expect(testComment.timeLastEdited).toEqual(originalTimeLastEdited);
+    }).toThrow("No timestamp provided.");
   });
 
   test("recipe and user references are immutable", () => {

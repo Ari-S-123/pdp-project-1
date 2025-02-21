@@ -76,23 +76,14 @@ describe("Message", () => {
     }).toThrow("No timestamp provided.");
   });
 
-  test("message properties remain unchanged after invalid updates", () => {
-    const originalText = testMessage.text;
-    const originalTimeLastEdited = testMessage.timeLastEdited;
-
-    try {
+  test("message properties throw errors for invalid updates", () => {
+    expect(() => {
       testMessage.text = "";
-    } catch {
-      // Expected error
-    }
-    expect(testMessage.text).toBe(originalText);
+    }).toThrow("No text provided.");
 
-    try {
+    expect(() => {
       testMessage.timeLastEdited = null as unknown as Date;
-    } catch {
-      // Expected error
-    }
-    expect(testMessage.timeLastEdited).toEqual(originalTimeLastEdited);
+    }).toThrow("No timestamp provided.");
   });
 
   test("sender and receiver references are immutable", () => {
