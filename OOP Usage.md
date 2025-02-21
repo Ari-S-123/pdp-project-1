@@ -240,12 +240,15 @@ Example with Recipe and RecipeVersion:
 ```typescript
 export class Recipe implements IRecipe {
   public calculateBAC(user: IUser): number {
+    const ethanolDensity = 0.78945;
     const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
-      return acc + ingredient.volumeInMl * ingredient.abv;
+      // Convert ABV from percentage (e.g., 40) to a fraction (0.40)
+      const alcoholMl = ingredient.volumeInMl * (ingredient.abv / 100);
+      return acc + alcoholMl * ethanolDensity;
     }, 0);
     const bodyWeightInGrams = user.weightInKg * 1000;
-    const distributionRatio = user.biologicalSex === BiologicalSex.MALE ? 0.68 : 0.55;
-    return (doseInGrams / (bodyWeightInGrams * distributionRatio)) * 100 * -0.016;
+    const widmarkConstant = user.biologicalSex === BiologicalSex.MALE ? 0.68 : 0.55;
+    return (doseInGrams / (bodyWeightInGrams * widmarkConstant)) * 100;
   }
 }
 
