@@ -1,3 +1,4 @@
+import { BiologicalSex } from "../enums/BiologicalSex";
 import IUser from "../interfaces/IUser";
 
 /**
@@ -11,12 +12,12 @@ export class User implements IUser {
   private _password: string;
   private _is2FAEnabled: boolean;
   private _timeCreated: Date;
-  private _zipCode: string;
-  private _biologicalSex: string;
-  private _weightInKg: number;
-  private _email: string;
-  private _phoneNumber: string;
-  private _profilePicUrl: string;
+  private _zipCode?: string;
+  private _biologicalSex?: BiologicalSex;
+  private _weightInKg?: number;
+  private _email?: string;
+  private _phoneNumber?: string;
+  private _profilePicUrl?: string;
   private _friends: IUser[];
 
   /**
@@ -26,7 +27,7 @@ export class User implements IUser {
    * @param {boolean} is2FAEnabled - Whether two-factor authentication is enabled.
    * @param {Date} timeCreated - The creation timestamp of the user account.
    * @param {string} zipCode - The zip code of the user's location.
-   * @param {string} biologicalSex - The biological sex of the user.
+   * @param {BiologicalSex} biologicalSex - The biological sex of the user.
    * @param {number} weightInKg - The weight of the user in kilograms.
    * @param {string} email - The email address of the user.
    * @param {string} phoneNumber - The phone number of the user.
@@ -39,7 +40,7 @@ export class User implements IUser {
     is2FAEnabled: boolean,
     timeCreated: Date,
     zipCode: string,
-    biologicalSex: string,
+    biologicalSex: BiologicalSex | undefined,
     weightInKg: number,
     email: string,
     phoneNumber: string,
@@ -117,6 +118,9 @@ export class User implements IUser {
    * @returns {string} The zip code of the user's location.
    */
   get zipCode(): string {
+    if (!this._zipCode) {
+      throw new Error("Zip code is not set");
+    }
     return this._zipCode;
   }
   /**
@@ -127,15 +131,18 @@ export class User implements IUser {
   }
 
   /**
-   * @returns {string} The biological sex of the user.
+   * @returns {BiologicalSex} The biological sex of the user.
    */
-  get biologicalSex(): string {
+  get biologicalSex(): BiologicalSex {
+    if (!this._biologicalSex) {
+      throw new Error("Biological sex is not set");
+    }
     return this._biologicalSex;
   }
   /**
-   * @param {string} biologicalSex The biological sex of the user.
+   * @param {BiologicalSex} biologicalSex The biological sex of the user.
    */
-  set biologicalSex(biologicalSex: string) {
+  set biologicalSex(biologicalSex: BiologicalSex) {
     this._biologicalSex = biologicalSex;
   }
 
@@ -143,6 +150,9 @@ export class User implements IUser {
    * @returns {number} The weight of the user in kilograms.
    */
   get weightInKg(): number {
+    if (!this._weightInKg) {
+      throw new Error("Weight in kilograms is not set");
+    }
     return this._weightInKg;
   }
   /**
@@ -156,6 +166,9 @@ export class User implements IUser {
    * @returns {string} The email address of the user.
    */
   get email(): string {
+    if (!this._email) {
+      throw new Error("Email is not set");
+    }
     return this._email;
   }
   /**
@@ -169,6 +182,9 @@ export class User implements IUser {
    * @returns {string} The phone number of the user.
    */
   get phoneNumber(): string {
+    if (!this._phoneNumber) {
+      throw new Error("Phone number is not set");
+    }
     return this._phoneNumber;
   }
   /**
@@ -182,6 +198,9 @@ export class User implements IUser {
    * @returns {string} The URL of the user's profile picture.
    */
   get profilePicUrl(): string {
+    if (!this._profilePicUrl) {
+      throw new Error("Profile picture URL is not set");
+    }
     return this._profilePicUrl;
   }
   /**

@@ -58,6 +58,9 @@ export class FriendRequest implements IFriendRequest {
    * @param {FriendRequestStatus} status The new status of the friend request.
    */
   set status(status: FriendRequestStatus) {
+    if (!status) {
+      throw new Error("No status provided.");
+    }
     this._status = status;
   }
 }

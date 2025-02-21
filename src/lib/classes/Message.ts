@@ -52,6 +52,9 @@ export class Message implements IMessage {
    * @param {string} text The new content of the message.
    */
   set text(text: string) {
+    if (!text) {
+      throw new Error("No text provided.");
+    }
     this._text = text;
   }
 
@@ -106,6 +109,9 @@ export class Message implements IMessage {
    * @param {Date} timeLastEdited The new timestamp of the last edit to the message.
    */
   set timeLastEdited(timeLastEdited: Date) {
+    if (!timeLastEdited) {
+      throw new Error("No timestamp provided.");
+    }
     this._timeLastEdited = timeLastEdited;
   }
 }

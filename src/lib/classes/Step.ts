@@ -46,6 +46,9 @@ export class Step implements IStep {
    * @param {string} description The new description of what to do in this step.
    */
   set description(description: string) {
+    if (!description) {
+      throw new Error("No description provided.");
+    }
     this._description = description;
   }
 }

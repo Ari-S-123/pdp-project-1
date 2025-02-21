@@ -43,6 +43,9 @@ export class Ingredient implements IIngredient {
    * @param {string} name The new name of the ingredient.
    */
   set name(name: string) {
+    if (!name) {
+      throw new Error("No name provided.");
+    }
     this._name = name;
   }
 
@@ -56,6 +59,9 @@ export class Ingredient implements IIngredient {
    * @param {number} volumeInMl The new volume of the ingredient in milliliters.
    */
   set volumeInMl(volumeInMl: number) {
+    if (volumeInMl < 0) {
+      throw new Error("Volume in milliliters cannot be negative.");
+    }
     this._volumeInMl = volumeInMl;
   }
 
@@ -69,6 +75,9 @@ export class Ingredient implements IIngredient {
    * @param {number} abv The new alcohol by volume percentage of the ingredient.
    */
   set abv(abv: number) {
+    if (abv < 0 || abv > 100) {
+      throw new Error("Invalid alcohol by volume percentage.");
+    }
     this._abv = abv;
   }
 }

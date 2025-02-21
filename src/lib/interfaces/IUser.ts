@@ -1,3 +1,5 @@
+import { BiologicalSex } from "../enums/BiologicalSex";
+
 /**
  * @interface IUser
  * @description Represents a user.
@@ -34,9 +36,9 @@ export default interface IUser {
   get zipCode(): string;
 
   /**
-   * @returns {string} The biological sex of the user.
+   * @returns {BiologicalSex} The biological sex of the user.
    */
-  get biologicalSex(): string;
+  get biologicalSex(): BiologicalSex;
 
   /**
    * @returns {number} The weight of the user in kilograms.
@@ -101,9 +103,9 @@ export default interface IUser {
 
   /**
    * @description Sets the biological sex of the user.
-   * @param {string} biologicalSex The biological sex of the user.
+   * @param {BiologicalSex} biologicalSex The biological sex of the user.
    */
-  set biologicalSex(biologicalSex: string);
+  set biologicalSex(biologicalSex: BiologicalSex);
 
   /**
    * @description Sets the weight of the user in kilograms.

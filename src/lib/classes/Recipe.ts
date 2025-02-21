@@ -4,6 +4,7 @@ import IStep from "../interfaces/IStep";
 import { TasteProfile } from "../enums/TasteProfile";
 import { Visibility } from "../enums/Visibility";
 import IUser from "../interfaces/IUser";
+import { BiologicalSex } from "../enums/BiologicalSex";
 
 /**
  * @class Recipe
@@ -16,7 +17,7 @@ export class Recipe implements IRecipe {
   private _tasteProfiles: TasteProfile[];
   private _visibility: Visibility;
   private _timeCreated: Date;
-  private _description: string;
+  private _description?: string;
   private _timeLastUpdated: Date;
   private _ingredients: IIngredient[];
   private _steps: IStep[];
@@ -112,6 +113,9 @@ export class Recipe implements IRecipe {
    * @returns {string} The description of the recipe.
    */
   get description(): string {
+    if (!this._description) {
+      throw new Error("Description is not set");
+    }
     return this._description;
   }
   /**
@@ -161,13 +165,12 @@ export class Recipe implements IRecipe {
    * @param {IUser} user The user to calculate BAC for.
    * @returns {number} The calculated BAC value.
    */
-  calculateBAC(user: IUser): number {
+  public calculateBAC(user: IUser): number {
     const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
       return acc + ingredient.volumeInMl * ingredient.abv;
     }, 0);
     const bodyWeightInGrams = user.weightInKg * 1000;
-    const distributionRatio = user.biologicalSex === "male" ? 0.68 : 0.55;
-    const bac = (doseInGrams / (bodyWeightInGrams * distributionRatio)) * 100 * -0.016;
-    return bac;
+    const distributionRatio = user.biologicalSex === BiologicalSex.MALE ? 0.68 : 0.55;
+    return (doseInGrams / (bodyWeightInGrams * distributionRatio)) * 100 * -0.016;
   }
 }
