@@ -15,8 +15,9 @@ MixSmart is a new cocktail recipe platform that combines advanced AI-powered gen
 
 These would be hard for other people to test locally without having to expose my API key or forcing graders to get their own API key.
 
-- Implement AI recipe generation with Gemini API
-- Implement Restful endpoints with hono and persistence layer with drizzle and postgres
+- Age verification would be handled in the frontend with an API call to a third party service. Age is not modeled in this project as all users are assumed to be above 21.
+- AI recipe generation with Gemini API
+- Restful endpoints with hono and persistence layer with drizzle and postgres
 
 ## Setup
 
