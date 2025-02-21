@@ -28,7 +28,7 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
    * @param {IIngredient[]} [ingredients=[]] - The ingredients of the recipe.
    * @param {IStep[]} [steps=[]] - The steps of the recipe.
    */
-  constructor(
+  public constructor(
     creator: IUser,
     title: string,
     tasteProfiles: TasteProfile[],
@@ -47,7 +47,7 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
   /**
    * @returns {number} The version number of this recipe version.
    */
-  get versionNumber(): number {
+  public get versionNumber(): number {
     return this._versionNumber;
   }
 }

@@ -24,7 +24,7 @@ export class Message implements IMessage {
    * @param {boolean} isRead - Whether the message has been read by the receiver.
    * @param {Date} timeLastEdited - The timestamp of the last edit to the message.
    */
-  constructor(
+  public constructor(
     text: string,
     timeCreated: Date,
     attachmentUrls: string[],
@@ -45,13 +45,13 @@ export class Message implements IMessage {
   /**
    * @returns {string} The content of the message.
    */
-  get text(): string {
+  public get text(): string {
     return this._text;
   }
   /**
    * @param {string} text The new content of the message.
    */
-  set text(text: string) {
+  public set text(text: string) {
     if (!text) {
       throw new Error("No text provided.");
     }
@@ -61,54 +61,54 @@ export class Message implements IMessage {
   /**
    * @returns {Date} The creation timestamp of the message.
    */
-  get timeCreated(): Date {
+  public get timeCreated(): Date {
     return this._timeCreated;
   }
 
   /**
    * @returns {string[]} The URLs of any attachments to the message.
    */
-  get attachmentUrls(): string[] {
+  public get attachmentUrls(): string[] {
     return this._attachmentUrls;
   }
   /**
    * @param {string[]} attachmentUrls The new URLs of attachments to the message.
    */
-  set attachmentUrls(attachmentUrls: string[]) {
+  public set attachmentUrls(attachmentUrls: string[]) {
     this._attachmentUrls = attachmentUrls;
   }
 
   /**
    * @returns {IUser} The user who sent the message.
    */
-  get sender(): IUser {
+  public get sender(): IUser {
     return this._sender;
   }
 
   /**
    * @returns {IUser} The user who received the message.
    */
-  get receiver(): IUser {
+  public get receiver(): IUser {
     return this._receiver;
   }
 
   /**
    * @returns {boolean} Whether the message has been read by the receiver.
    */
-  get isRead(): boolean {
+  public get isRead(): boolean {
     return this._isRead;
   }
 
   /**
    * @returns {Date} The timestamp of the last edit to the message.
    */
-  get timeLastEdited(): Date {
+  public get timeLastEdited(): Date {
     return this._timeLastEdited;
   }
   /**
    * @param {Date} timeLastEdited The new timestamp of the last edit to the message.
    */
-  set timeLastEdited(timeLastEdited: Date) {
+  public set timeLastEdited(timeLastEdited: Date) {
     if (!timeLastEdited) {
       throw new Error("No timestamp provided.");
     }

@@ -16,7 +16,7 @@ export class Step implements IStep {
    * @param {number} stepNumber - The order number of this step in the recipe.
    * @param {string} description - The description of what to do in this step.
    */
-  constructor(recipe: IRecipe, stepNumber: number, description: string) {
+  public constructor(recipe: IRecipe, stepNumber: number, description: string) {
     this._recipe = recipe;
     this._stepNumber = stepNumber;
     this._description = description;
@@ -25,27 +25,27 @@ export class Step implements IStep {
   /**
    * @returns {IRecipe} The recipe this step belongs to.
    */
-  get recipe(): IRecipe {
+  public get recipe(): IRecipe {
     return this._recipe;
   }
 
   /**
    * @returns {number} The order number of this step in the recipe.
    */
-  get stepNumber(): number {
+  public get stepNumber(): number {
     return this._stepNumber;
   }
 
   /**
    * @returns {string} The description of what to do in this step.
    */
-  get description(): string {
+  public get description(): string {
     return this._description;
   }
   /**
    * @param {string} description The new description of what to do in this step.
    */
-  set description(description: string) {
+  public set description(description: string) {
     if (!description) {
       throw new Error("No description provided.");
     }

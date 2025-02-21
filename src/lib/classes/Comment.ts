@@ -22,7 +22,7 @@ export class Comment implements IComment {
    * @param {Date} timeCreated - The creation timestamp of the comment.
    * @param {Date} timeLastEdited - The timestamp of the last edit to the comment.
    */
-  constructor(recipe: IRecipe, user: IUser, text: string, timeCreated: Date, timeLastEdited: Date) {
+  public constructor(recipe: IRecipe, user: IUser, text: string, timeCreated: Date, timeLastEdited: Date) {
     this._recipe = recipe;
     this._user = user;
     this._text = text;
@@ -33,27 +33,27 @@ export class Comment implements IComment {
   /**
    * @returns {IRecipe} The recipe the comment belongs to.
    */
-  get recipe(): IRecipe {
+  public get recipe(): IRecipe {
     return this._recipe;
   }
 
   /**
    * @returns {IUser} The user who made the comment.
    */
-  get user(): IUser {
+  public get user(): IUser {
     return this._user;
   }
 
   /**
    * @returns {string} The content of the comment.
    */
-  get text(): string {
+  public get text(): string {
     return this._text;
   }
   /**
    * @param {string} text The new content of the comment.
    */
-  set text(text: string) {
+  public set text(text: string) {
     if (!text) {
       throw new Error("No text provided.");
     }
@@ -63,20 +63,20 @@ export class Comment implements IComment {
   /**
    * @returns {Date} The creation timestamp of the comment.
    */
-  get timeCreated(): Date {
+  public get timeCreated(): Date {
     return this._timeCreated;
   }
 
   /**
    * @returns {Date} The timestamp of the last edit to the comment.
    */
-  get timeLastEdited(): Date {
+  public get timeLastEdited(): Date {
     return this._timeLastEdited;
   }
   /**
    * @param {Date} timeLastEdited The new timestamp of the last edit to the comment.
    */
-  set timeLastEdited(timeLastEdited: Date) {
+  public set timeLastEdited(timeLastEdited: Date) {
     if (!timeLastEdited) {
       throw new Error("No timestamp provided.");
     }

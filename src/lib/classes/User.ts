@@ -34,7 +34,7 @@ export class User implements IUser {
    * @param {string} profilePicUrl - The URL of the user's profile picture.
    * @param {IUser[]} [friends=[]] - The friends of the user.
    */
-  constructor(
+  public constructor(
     username: string,
     password: string,
     is2FAEnabled: boolean,
@@ -64,60 +64,60 @@ export class User implements IUser {
   /**
    * @returns {string} The unique identifier of the user.
    */
-  get userId(): string {
+  public get userId(): string {
     return this._userId;
   }
 
   /**
    * @returns {string} The username of the user.
    */
-  get username(): string {
+  public get username(): string {
     return this._username;
   }
   /**
    * @param {string} username The new username of the user.
    */
-  set username(username: string) {
+  public set username(username: string) {
     this._username = username;
   }
 
   /**
    * @returns {string} The password of the user.
    */
-  get password(): string {
+  public get password(): string {
     return this._password;
   }
   /**
    * @param {string} password The new password of the user.
    */
-  set password(password: string) {
+  public set password(password: string) {
     this._password = password;
   }
 
   /**
    * @returns {boolean} Whether two-factor authentication is enabled.
    */
-  get is2FAEnabled(): boolean {
+  public get is2FAEnabled(): boolean {
     return this._is2FAEnabled;
   }
   /**
    * @param {boolean} is2FAEnabled Whether to enable or disable two-factor authentication.
    */
-  set is2FAEnabled(is2FAEnabled: boolean) {
+  public set is2FAEnabled(is2FAEnabled: boolean) {
     this._is2FAEnabled = is2FAEnabled;
   }
 
   /**
    * @returns {Date} The creation timestamp of the user account.
    */
-  get timeCreated(): Date {
+  public get timeCreated(): Date {
     return this._timeCreated;
   }
 
   /**
    * @returns {string} The zip code of the user's location.
    */
-  get zipCode(): string {
+  public get zipCode(): string {
     if (!this._zipCode) {
       throw new Error("Zip code is not set");
     }
@@ -126,14 +126,14 @@ export class User implements IUser {
   /**
    * @param {string} zipCode The new zip code of the user's location.
    */
-  set zipCode(zipCode: string) {
+  public set zipCode(zipCode: string) {
     this._zipCode = zipCode;
   }
 
   /**
    * @returns {BiologicalSex} The biological sex of the user.
    */
-  get biologicalSex(): BiologicalSex {
+  public get biologicalSex(): BiologicalSex {
     if (!this._biologicalSex) {
       throw new Error("Biological sex is not set");
     }
@@ -142,14 +142,14 @@ export class User implements IUser {
   /**
    * @param {BiologicalSex} biologicalSex The biological sex of the user.
    */
-  set biologicalSex(biologicalSex: BiologicalSex) {
+  public set biologicalSex(biologicalSex: BiologicalSex) {
     this._biologicalSex = biologicalSex;
   }
 
   /**
    * @returns {number} The weight of the user in kilograms.
    */
-  get weightInKg(): number {
+  public get weightInKg(): number {
     if (!this._weightInKg) {
       throw new Error("Weight in kilograms is not set");
     }
@@ -158,14 +158,14 @@ export class User implements IUser {
   /**
    * @param {number} weightInKg The new weight of the user in kilograms.
    */
-  set weightInKg(weightInKg: number) {
+  public set weightInKg(weightInKg: number) {
     this._weightInKg = weightInKg;
   }
 
   /**
    * @returns {string} The email address of the user.
    */
-  get email(): string {
+  public get email(): string {
     if (!this._email) {
       throw new Error("Email is not set");
     }
@@ -174,14 +174,14 @@ export class User implements IUser {
   /**
    * @param {string} email The new email address of the user.
    */
-  set email(email: string) {
+  public set email(email: string) {
     this._email = email;
   }
 
   /**
    * @returns {string} The phone number of the user.
    */
-  get phoneNumber(): string {
+  public get phoneNumber(): string {
     if (!this._phoneNumber) {
       throw new Error("Phone number is not set");
     }
@@ -190,14 +190,14 @@ export class User implements IUser {
   /**
    * @param {string} phoneNumber The new phone number of the user.
    */
-  set phoneNumber(phoneNumber: string) {
+  public set phoneNumber(phoneNumber: string) {
     this._phoneNumber = phoneNumber;
   }
 
   /**
    * @returns {string} The URL of the user's profile picture.
    */
-  get profilePicUrl(): string {
+  public get profilePicUrl(): string {
     if (!this._profilePicUrl) {
       throw new Error("Profile picture URL is not set");
     }
@@ -206,14 +206,14 @@ export class User implements IUser {
   /**
    * @param {string} profilePicUrl The new URL of the user's profile picture.
    */
-  set profilePicUrl(profilePicUrl: string) {
+  public set profilePicUrl(profilePicUrl: string) {
     this._profilePicUrl = profilePicUrl;
   }
 
   /**
    * @returns {IUser[]} The friends of the user.
    */
-  get friends(): IUser[] {
+  public get friends(): IUser[] {
     return this._friends;
   }
 

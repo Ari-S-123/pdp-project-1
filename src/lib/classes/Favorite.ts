@@ -18,7 +18,7 @@ export class Favorite implements IFavorite {
    * @param {IUser} user - The user who favorited the recipe.
    * @param {Date} timeCreated - The timestamp when the recipe was favorited.
    */
-  constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
+  public constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
     this._recipe = recipe;
     this._user = user;
     this._timeCreated = timeCreated;
@@ -27,21 +27,21 @@ export class Favorite implements IFavorite {
   /**
    * @returns {IRecipe} The recipe that was favorited.
    */
-  get recipe(): IRecipe {
+  public get recipe(): IRecipe {
     return this._recipe;
   }
 
   /**
    * @returns {IUser} The user who favorited the recipe.
    */
-  get user(): IUser {
+  public get user(): IUser {
     return this._user;
   }
 
   /**
    * @returns {Date} The timestamp when the recipe was favorited.
    */
-  get timeCreated(): Date {
+  public get timeCreated(): Date {
     return this._timeCreated;
   }
 }

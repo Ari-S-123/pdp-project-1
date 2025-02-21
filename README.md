@@ -4,10 +4,10 @@ MixSmart is a new cocktail recipe platform that combines advanced AI-powered gen
 
 ## TODO
 
-- [x] Implement BAC calculation
+- [x] Properly implement BAC calculation
 - [x] Document OOP usage
-- [ ] Update implementation of classes to not use id references
-- [ ] Double check input validation implementation
+- [x] Update implementation of classes to not use id references
+- [x] Double check input validation implementation
 - [ ] Implement unit tests with bun:test
 - [ ] Implement Github Actions (Optional)
 

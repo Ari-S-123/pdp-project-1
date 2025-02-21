@@ -19,7 +19,7 @@ export class Ingredient implements IIngredient {
    * @param {number} volumeInMl - The volume of the ingredient in milliliters.
    * @param {number} abv - The alcohol by volume percentage of the ingredient.
    */
-  constructor(recipe: IRecipe, name: string, volumeInMl: number, abv: number) {
+  public constructor(recipe: IRecipe, name: string, volumeInMl: number, abv: number) {
     this._recipe = recipe;
     this._name = name;
     this._volumeInMl = volumeInMl;
@@ -29,20 +29,20 @@ export class Ingredient implements IIngredient {
   /**
    * @returns {IRecipe} The recipe this ingredient belongs to.
    */
-  get recipe(): IRecipe {
+  public get recipe(): IRecipe {
     return this._recipe;
   }
 
   /**
    * @returns {string} The name of the ingredient.
    */
-  get name(): string {
+  public get name(): string {
     return this._name;
   }
   /**
    * @param {string} name The new name of the ingredient.
    */
-  set name(name: string) {
+  public set name(name: string) {
     if (!name) {
       throw new Error("No name provided.");
     }
@@ -52,13 +52,13 @@ export class Ingredient implements IIngredient {
   /**
    * @returns {number} The volume of the ingredient in milliliters.
    */
-  get volumeInMl(): number {
+  public get volumeInMl(): number {
     return this._volumeInMl;
   }
   /**
    * @param {number} volumeInMl The new volume of the ingredient in milliliters.
    */
-  set volumeInMl(volumeInMl: number) {
+  public set volumeInMl(volumeInMl: number) {
     if (volumeInMl < 0) {
       throw new Error("Volume in milliliters cannot be negative.");
     }
@@ -68,13 +68,13 @@ export class Ingredient implements IIngredient {
   /**
    * @returns {number} The alcohol by volume percentage of the ingredient.
    */
-  get abv(): number {
+  public get abv(): number {
     return this._abv;
   }
   /**
    * @param {number} abv The new alcohol by volume percentage of the ingredient.
    */
-  set abv(abv: number) {
+  public set abv(abv: number) {
     if (abv < 0 || abv > 100) {
       throw new Error("Invalid alcohol by volume percentage.");
     }

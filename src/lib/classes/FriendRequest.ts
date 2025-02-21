@@ -20,7 +20,7 @@ export class FriendRequest implements IFriendRequest {
    * @param {Date} timeCreated - The creation timestamp of the friend request.
    * @param {FriendRequestStatus} status - The current status of the friend request.
    */
-  constructor(senderUser: IUser, receiverUser: IUser, timeCreated: Date, status: FriendRequestStatus) {
+  public constructor(senderUser: IUser, receiverUser: IUser, timeCreated: Date, status: FriendRequestStatus) {
     this._senderUser = senderUser;
     this._receiverUser = receiverUser;
     this._timeCreated = timeCreated;
@@ -30,34 +30,34 @@ export class FriendRequest implements IFriendRequest {
   /**
    * @returns {IUser} The user who sent the friend request.
    */
-  get senderUser(): IUser {
+  public get senderUser(): IUser {
     return this._senderUser;
   }
 
   /**
    * @returns {IUser} The user who received the friend request.
    */
-  get receiverUser(): IUser {
+  public get receiverUser(): IUser {
     return this._receiverUser;
   }
 
   /**
    * @returns {Date} The creation timestamp of the friend request.
    */
-  get timeCreated(): Date {
+  public get timeCreated(): Date {
     return this._timeCreated;
   }
 
   /**
    * @returns {FriendRequestStatus} The current status of the friend request.
    */
-  get status(): FriendRequestStatus {
+  public get status(): FriendRequestStatus {
     return this._status;
   }
   /**
    * @param {FriendRequestStatus} status The new status of the friend request.
    */
-  set status(status: FriendRequestStatus) {
+  public set status(status: FriendRequestStatus) {
     if (!status) {
       throw new Error("No status provided.");
     }

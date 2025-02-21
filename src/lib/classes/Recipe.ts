@@ -34,7 +34,7 @@ export class Recipe implements IRecipe {
    * @param {IIngredient[]} [ingredients=[]] - The ingredients of the recipe.
    * @param {IStep[]} [steps=[]] - The steps of the recipe.
    */
-  constructor(
+  public constructor(
     creator: IUser,
     title: string,
     tasteProfiles: TasteProfile[],
@@ -59,60 +59,60 @@ export class Recipe implements IRecipe {
   /**
    * @returns {IUser} The creator of the recipe.
    */
-  get creator(): IUser {
+  public get creator(): IUser {
     return this._creator;
   }
 
   /**
    * @returns {string} The title of the recipe.
    */
-  get title(): string {
+  public get title(): string {
     return this._title;
   }
   /**
    * @param {string} title The new title of the recipe.
    */
-  set title(title: string) {
+  public set title(title: string) {
     this._title = title;
   }
 
   /**
    * @returns {TasteProfile[]} The taste profiles of the recipe.
    */
-  get tasteProfiles(): TasteProfile[] {
+  public get tasteProfiles(): TasteProfile[] {
     return this._tasteProfiles;
   }
   /**
    * @param {TasteProfile[]} tasteProfiles The new taste profiles of the recipe.
    */
-  set tasteProfiles(tasteProfiles: TasteProfile[]) {
+  public set tasteProfiles(tasteProfiles: TasteProfile[]) {
     this._tasteProfiles = tasteProfiles;
   }
 
   /**
    * @returns {boolean} Whether the recipe is visible to the public.
    */
-  get visibility(): boolean {
+  public get visibility(): boolean {
     return this._visibility === Visibility.PUBLIC;
   }
   /**
    * @param {Visibility} visibility The new visibility setting of the recipe.
    */
-  set visibility(visibility: Visibility) {
+  public set visibility(visibility: Visibility) {
     this._visibility = visibility;
   }
 
   /**
    * @returns {Date} The creation timestamp of the recipe.
    */
-  get timeCreated(): Date {
+  public get timeCreated(): Date {
     return this._timeCreated;
   }
 
   /**
    * @returns {string} The description of the recipe.
    */
-  get description(): string {
+  public get description(): string {
     if (!this._description) {
       throw new Error("Description is not set");
     }
@@ -121,40 +121,40 @@ export class Recipe implements IRecipe {
   /**
    * @param {string} description The new description of the recipe.
    */
-  set description(description: string) {
+  public set description(description: string) {
     this._description = description;
   }
 
   /**
    * @returns {Date} The last update timestamp of the recipe.
    */
-  get timeLastUpdated(): Date {
+  public get timeLastUpdated(): Date {
     return this._timeLastUpdated;
   }
   /**
    * @param {Date} timeLastUpdated The new last update timestamp of the recipe.
    */
-  set timeLastUpdated(timeLastUpdated: Date) {
+  public set timeLastUpdated(timeLastUpdated: Date) {
     this._timeLastUpdated = timeLastUpdated;
   }
 
   /**
    * @returns {IIngredient[]} The ingredients of the recipe.
    */
-  get ingredients(): IIngredient[] {
+  public get ingredients(): IIngredient[] {
     return this._ingredients;
   }
 
   /**
    * @returns {IStep[]} The steps of the recipe.
    */
-  get steps(): IStep[] {
+  public get steps(): IStep[] {
     return this._steps;
   }
   /**
    * @param {IStep[]} steps The new steps of the recipe.
    */
-  set steps(steps: IStep[]) {
+  public set steps(steps: IStep[]) {
     this._steps = steps;
   }
 

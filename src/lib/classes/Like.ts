@@ -18,7 +18,7 @@ export class Like implements ILike {
    * @param {IUser} user - The user who liked the recipe.
    * @param {Date} timeCreated - The timestamp when the recipe was liked.
    */
-  constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
+  public constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
     this._recipe = recipe;
     this._user = user;
     this._timeCreated = timeCreated;
@@ -27,21 +27,21 @@ export class Like implements ILike {
   /**
    * @returns {IRecipe} The recipe that was liked.
    */
-  get recipe(): IRecipe {
+  public get recipe(): IRecipe {
     return this._recipe;
   }
 
   /**
    * @returns {IUser} The user who liked the recipe.
    */
-  get user(): IUser {
+  public get user(): IUser {
     return this._user;
   }
 
   /**
    * @returns {Date} The timestamp when the recipe was liked.
    */
-  get timeCreated(): Date {
+  public get timeCreated(): Date {
     return this._timeCreated;
   }
 }
