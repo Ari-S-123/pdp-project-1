@@ -93,8 +93,7 @@ describe("RecipeVersion", () => {
 
   test("BAC calculation works correctly", () => {
     const tequila = new Ingredient(testRecipeVersion, "Tequila", 60, 40);
-    const limeJuice = new Ingredient(testRecipeVersion, "Lime Juice", 30, 0);
-    const tripleSec = new Ingredient(testRecipeVersion, "Triple Sec", 30, 30);
+    const limeJuice = new Ingredient(testRecipeVersion, "Lime Juice", 25, 0);
 
     const versionWithIngredients = new RecipeVersion(
       creator,
@@ -104,12 +103,11 @@ describe("RecipeVersion", () => {
       "Classic margarita recipe",
       new Date("2024-02-21"),
       1,
-      [tequila, limeJuice, tripleSec]
+      [tequila, limeJuice]
     );
 
     const bac = versionWithIngredients.calculateBAC(creator);
-    expect(typeof bac).toBe("number");
-    expect(bac).toBeLessThan(0); // BAC should be negative due to -0.016 constant rate
+    expect(bac).toBeCloseTo(0.0398, 3);
   });
 
   test("version number is immutable", () => {
