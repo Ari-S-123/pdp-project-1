@@ -1,4 +1,6 @@
 import IComment from "../interfaces/IComment";
+import IRecipe from "../interfaces/IRecipe";
+import IUser from "../interfaces/IUser";
 
 /**
  * @class Comment
@@ -6,40 +8,40 @@ import IComment from "../interfaces/IComment";
  * @description Implementation of a comment on a recipe.
  */
 export class Comment implements IComment {
-  private _recipeId: string;
-  private _userId: string;
+  private _recipe: IRecipe;
+  private _user: IUser;
   private _text: string;
   private _timeCreated: Date;
   private _timeLastEdited: Date;
 
   /**
    * @constructor
-   * @param {string} recipeId - The ID of the recipe the comment belongs to.
-   * @param {string} userId - The ID of the user who made the comment.
+   * @param {IRecipe} recipe - The recipe the comment belongs to.
+   * @param {IUser} user - The user who made the comment.
    * @param {string} text - The content of the comment.
    * @param {Date} timeCreated - The creation timestamp of the comment.
    * @param {Date} timeLastEdited - The timestamp of the last edit to the comment.
    */
-  constructor(recipeId: string, userId: string, text: string, timeCreated: Date, timeLastEdited: Date) {
-    this._recipeId = recipeId;
-    this._userId = userId;
+  constructor(recipe: IRecipe, user: IUser, text: string, timeCreated: Date, timeLastEdited: Date) {
+    this._recipe = recipe;
+    this._user = user;
     this._text = text;
     this._timeCreated = timeCreated;
     this._timeLastEdited = timeLastEdited;
   }
 
   /**
-   * @returns {string} The ID of the recipe the comment belongs to.
+   * @returns {IRecipe} The recipe the comment belongs to.
    */
-  get recipeId(): string {
-    return this._recipeId;
+  get recipe(): IRecipe {
+    return this._recipe;
   }
 
   /**
-   * @returns {string} The ID of the user who made the comment.
+   * @returns {IUser} The user who made the comment.
    */
-  get userId(): string {
-    return this._userId;
+  get user(): IUser {
+    return this._user;
   }
 
   /**

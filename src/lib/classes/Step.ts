@@ -1,32 +1,32 @@
 import IStep from "../interfaces/IStep";
-
+import IRecipe from "../interfaces/IRecipe";
 /**
  * @class Step
  * @implements {IStep}
  * @description Implementation of a step in a recipe's preparation instructions.
  */
 export class Step implements IStep {
-  private _recipeId: string;
+  private _recipe: IRecipe;
   private _stepNumber: number;
   private _description: string;
 
   /**
    * @constructor
-   * @param {string} recipeId - The ID of the recipe this step belongs to.
+   * @param {IRecipe} recipe - The recipe this step belongs to.
    * @param {number} stepNumber - The order number of this step in the recipe.
    * @param {string} description - The description of what to do in this step.
    */
-  constructor(recipeId: string, stepNumber: number, description: string) {
-    this._recipeId = recipeId;
+  constructor(recipe: IRecipe, stepNumber: number, description: string) {
+    this._recipe = recipe;
     this._stepNumber = stepNumber;
     this._description = description;
   }
 
   /**
-   * @returns {string} The ID of the recipe this step belongs to.
+   * @returns {IRecipe} The recipe this step belongs to.
    */
-  get recipeId(): string {
-    return this._recipeId;
+  get recipe(): IRecipe {
+    return this._recipe;
   }
 
   /**

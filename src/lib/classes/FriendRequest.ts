@@ -1,5 +1,6 @@
 import IFriendRequest from "../interfaces/IFriendRequest";
 import { FriendRequestStatus } from "../enums/FriendRequestStatus";
+import IUser from "../interfaces/IUser";
 
 /**
  * @class FriendRequest
@@ -7,37 +8,37 @@ import { FriendRequestStatus } from "../enums/FriendRequestStatus";
  * @description Implementation of a friend request between users.
  */
 export class FriendRequest implements IFriendRequest {
-  private _senderUserId: string;
-  private _receiverUserId: string;
+  private _senderUser: IUser;
+  private _receiverUser: IUser;
   private _timeCreated: Date;
   private _status: FriendRequestStatus;
 
   /**
    * @constructor
-   * @param {string} senderUserId - The ID of the user who sent the friend request.
-   * @param {string} receiverUserId - The ID of the user who received the friend request.
+   * @param {IUser} senderUser - The user who sent the friend request.
+   * @param {IUser} receiverUser - The user who received the friend request.
    * @param {Date} timeCreated - The creation timestamp of the friend request.
    * @param {FriendRequestStatus} status - The current status of the friend request.
    */
-  constructor(senderUserId: string, receiverUserId: string, timeCreated: Date, status: FriendRequestStatus) {
-    this._senderUserId = senderUserId;
-    this._receiverUserId = receiverUserId;
+  constructor(senderUser: IUser, receiverUser: IUser, timeCreated: Date, status: FriendRequestStatus) {
+    this._senderUser = senderUser;
+    this._receiverUser = receiverUser;
     this._timeCreated = timeCreated;
     this._status = status;
   }
 
   /**
-   * @returns {string} The ID of the user who sent the friend request.
+   * @returns {IUser} The user who sent the friend request.
    */
-  get senderUserId(): string {
-    return this._senderUserId;
+  get senderUser(): IUser {
+    return this._senderUser;
   }
 
   /**
-   * @returns {string} The ID of the user who received the friend request.
+   * @returns {IUser} The user who received the friend request.
    */
-  get receiverUserId(): string {
-    return this._receiverUserId;
+  get receiverUser(): IUser {
+    return this._receiverUser;
   }
 
   /**

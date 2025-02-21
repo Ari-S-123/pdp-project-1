@@ -1,8 +1,3 @@
-import IFriendRequest from "./IFriendRequest";
-import IMessage from "./IMessage";
-import IComment from "./IComment";
-import IRecipe from "./IRecipe";
-
 /**
  * @interface IUser
  * @description Represents a user.
@@ -69,11 +64,6 @@ export default interface IUser {
   get friends(): IUser[];
 
   /**
-   * @returns {IFriendRequest[]} The friend requests of the user.
-   */
-  get friendRequests(): IFriendRequest[];
-
-  /**
    * @description Adds a friend to the user.
    * @param {IUser} user The user to add as a friend.
    */
@@ -84,31 +74,6 @@ export default interface IUser {
    * @param {IUser} user The user to remove as a friend.
    */
   removeFriend(user: IUser): void;
-
-  /**
-   * @returns {IMessage[]} The messages of the user.
-   */
-  get messages(): IMessage[];
-
-  /**
-   * @returns {IComment[]} The comments of the user.
-   */
-  get comments(): IComment[];
-
-  /**
-   * @returns {IRecipe[]} The recipes of the user.
-   */
-  get recipes(): IRecipe[];
-
-  /**
-   * @returns {IRecipe[]} The favorite recipes of the user.
-   */
-  get favoriteRecipes(): IRecipe[];
-
-  /**
-   * @returns {IRecipe[]} The liked recipes of the user.
-   */
-  get likedRecipes(): IRecipe[];
 
   /**
    * @description Sets the username of the user.

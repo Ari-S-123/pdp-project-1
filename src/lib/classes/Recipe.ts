@@ -3,7 +3,7 @@ import IIngredient from "../interfaces/IIngredient";
 import IStep from "../interfaces/IStep";
 import { TasteProfile } from "../enums/TasteProfile";
 import { Visibility } from "../enums/Visibility";
-import { User } from "./User";
+import IUser from "../interfaces/IUser";
 
 /**
  * @class Recipe
@@ -11,7 +11,7 @@ import { User } from "./User";
  * @description Implementation of a recipe with all its properties and methods.
  */
 export class Recipe implements IRecipe {
-  private _creatorUserId: string;
+  private _creator: IUser;
   private _title: string;
   private _tasteProfiles: TasteProfile[];
   private _visibility: Visibility;
@@ -23,7 +23,7 @@ export class Recipe implements IRecipe {
 
   /**
    * @constructor
-   * @param {string} creatorUserId - The ID of the creator of the recipe.
+   * @param {IUser} creator - The creator of the recipe.
    * @param {string} title - The title of the recipe.
    * @param {TasteProfile[]} tasteProfiles - The taste profiles of the recipe.
    * @param {Visibility} visibility - The visibility setting of the recipe.
@@ -34,7 +34,7 @@ export class Recipe implements IRecipe {
    * @param {IStep[]} [steps=[]] - The steps of the recipe.
    */
   constructor(
-    creatorUserId: string,
+    creator: IUser,
     title: string,
     tasteProfiles: TasteProfile[],
     visibility: Visibility,
@@ -44,7 +44,7 @@ export class Recipe implements IRecipe {
     ingredients: IIngredient[] = [],
     steps: IStep[] = []
   ) {
-    this._creatorUserId = creatorUserId;
+    this._creator = creator;
     this._title = title;
     this._tasteProfiles = tasteProfiles;
     this._visibility = visibility;
@@ -56,10 +56,10 @@ export class Recipe implements IRecipe {
   }
 
   /**
-   * @returns {string} The ID of the creator of the recipe.
+   * @returns {IUser} The creator of the recipe.
    */
-  get creatorUserId(): string {
-    return this._creatorUserId;
+  get creator(): IUser {
+    return this._creator;
   }
 
   /**
@@ -158,38 +158,16 @@ export class Recipe implements IRecipe {
    * @description Calculates the Blood Alcohol Content for a user after consuming this recipe.
    * Calculate using the Widmark Equation
    * (Dose in grams/(Body weight in grams x Distribution ratio "r"))x100 where r(male)=.68 r(female)=.55 and assuming an average constant rate of -0.016 BAC per hour.
-   * @param {string} userId The ID of the user to calculate BAC for.
+   * @param {IUser} user The user to calculate BAC for.
    * @returns {number} The calculated BAC value.
    */
-  calculateBAC(userId: string): number {
-    // TODO: Implement BAC calculation, needs to be refactored to use User instance instead of userId
-    // temporary example user
-    let exampleUser = new User(
-      "123",
-      "John Doe",
-      "password",
-      false,
-      new Date(),
-      "12345",
-      "male",
-      70,
-      "john.doe@example.com",
-      "1234567890",
-      "https://example.com/profile.jpg",
-      [],
-      [],
-      []
-    );
-
+  calculateBAC(user: IUser): number {
     const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
       return acc + ingredient.volumeInMl * ingredient.abv;
     }, 0);
-
-    const bodyWeightInGrams = exampleUser.weightInKg * 1000;
-    const distributionRatio = exampleUser.biologicalSex === "male" ? 0.68 : 0.55;
-
+    const bodyWeightInGrams = user.weightInKg * 1000;
+    const distributionRatio = user.biologicalSex === "male" ? 0.68 : 0.55;
     const bac = (doseInGrams / (bodyWeightInGrams * distributionRatio)) * 100 * -0.016;
-
     return bac;
   }
 }

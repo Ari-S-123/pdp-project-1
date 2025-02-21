@@ -1,4 +1,6 @@
 import ILike from "../interfaces/ILike";
+import IRecipe from "../interfaces/IRecipe";
+import IUser from "../interfaces/IUser";
 
 /**
  * @class Like
@@ -6,34 +8,34 @@ import ILike from "../interfaces/ILike";
  * @description Implementation of a like relationship between a user and a recipe.
  */
 export class Like implements ILike {
-  private _recipeId: string;
-  private _userId: string;
+  private _recipe: IRecipe;
+  private _user: IUser;
   private _timeCreated: Date;
 
   /**
    * @constructor
-   * @param {string} recipeId - The ID of the recipe that was liked.
-   * @param {string} userId - The ID of the user who liked the recipe.
+   * @param {IRecipe} recipe - The recipe that was liked.
+   * @param {IUser} user - The user who liked the recipe.
    * @param {Date} timeCreated - The timestamp when the recipe was liked.
    */
-  constructor(recipeId: string, userId: string, timeCreated: Date) {
-    this._recipeId = recipeId;
-    this._userId = userId;
+  constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
+    this._recipe = recipe;
+    this._user = user;
     this._timeCreated = timeCreated;
   }
 
   /**
-   * @returns {string} The ID of the recipe that was liked.
+   * @returns {IRecipe} The recipe that was liked.
    */
-  get recipeId(): string {
-    return this._recipeId;
+  get recipe(): IRecipe {
+    return this._recipe;
   }
 
   /**
-   * @returns {string} The ID of the user who liked the recipe.
+   * @returns {IUser} The user who liked the recipe.
    */
-  get userId(): string {
-    return this._userId;
+  get user(): IUser {
+    return this._user;
   }
 
   /**

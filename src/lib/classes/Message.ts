@@ -1,5 +1,5 @@
 import IMessage from "../interfaces/IMessage";
-
+import IUser from "../interfaces/IUser";
 /**
  * @class Message
  * @implements {IMessage}
@@ -9,8 +9,8 @@ export class Message implements IMessage {
   private _text: string;
   private _timeCreated: Date;
   private _attachmentUrls: string[];
-  private _senderUserId: string;
-  private _receiverUserId: string;
+  private _sender: IUser;
+  private _receiver: IUser;
   private _isRead: boolean;
   private _timeLastEdited: Date;
 
@@ -19,8 +19,8 @@ export class Message implements IMessage {
    * @param {string} text - The content of the message.
    * @param {Date} timeCreated - The creation timestamp of the message.
    * @param {string[]} attachmentUrls - The URLs of any attachments to the message.
-   * @param {string} senderUserId - The ID of the user who sent the message.
-   * @param {string} receiverUserId - The ID of the user who received the message.
+   * @param {IUser} sender - The user who sent the message.
+   * @param {IUser} receiver - The user who received the message.
    * @param {boolean} isRead - Whether the message has been read by the receiver.
    * @param {Date} timeLastEdited - The timestamp of the last edit to the message.
    */
@@ -28,16 +28,16 @@ export class Message implements IMessage {
     text: string,
     timeCreated: Date,
     attachmentUrls: string[],
-    senderUserId: string,
-    receiverUserId: string,
+    sender: IUser,
+    receiver: IUser,
     isRead: boolean,
     timeLastEdited: Date
   ) {
     this._text = text;
     this._timeCreated = timeCreated;
     this._attachmentUrls = attachmentUrls;
-    this._senderUserId = senderUserId;
-    this._receiverUserId = receiverUserId;
+    this._sender = sender;
+    this._receiver = receiver;
     this._isRead = isRead;
     this._timeLastEdited = timeLastEdited;
   }
@@ -76,17 +76,17 @@ export class Message implements IMessage {
   }
 
   /**
-   * @returns {string} The ID of the user who sent the message.
+   * @returns {IUser} The user who sent the message.
    */
-  get senderUserId(): string {
-    return this._senderUserId;
+  get sender(): IUser {
+    return this._sender;
   }
 
   /**
-   * @returns {string} The ID of the user who received the message.
+   * @returns {IUser} The user who received the message.
    */
-  get receiverUserId(): string {
-    return this._receiverUserId;
+  get receiver(): IUser {
+    return this._receiver;
   }
 
   /**

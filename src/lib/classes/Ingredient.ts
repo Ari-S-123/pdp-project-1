@@ -1,4 +1,5 @@
 import IIngredient from "../interfaces/IIngredient";
+import IRecipe from "../interfaces/IRecipe";
 
 /**
  * @class Ingredient
@@ -6,30 +7,30 @@ import IIngredient from "../interfaces/IIngredient";
  * @description Implementation of an ingredient in a recipe.
  */
 export class Ingredient implements IIngredient {
-  private _recipeId: string;
+  private _recipe: IRecipe;
   private _name: string;
   private _volumeInMl: number;
   private _abv: number;
 
   /**
    * @constructor
-   * @param {string} recipeId - The ID of the recipe this ingredient belongs to.
+   * @param {IRecipe} recipe - The recipe this ingredient belongs to.
    * @param {string} name - The name of the ingredient.
    * @param {number} volumeInMl - The volume of the ingredient in milliliters.
    * @param {number} abv - The alcohol by volume percentage of the ingredient.
    */
-  constructor(recipeId: string, name: string, volumeInMl: number, abv: number) {
-    this._recipeId = recipeId;
+  constructor(recipe: IRecipe, name: string, volumeInMl: number, abv: number) {
+    this._recipe = recipe;
     this._name = name;
     this._volumeInMl = volumeInMl;
     this._abv = abv;
   }
 
   /**
-   * @returns {string} The ID of the recipe this ingredient belongs to.
+   * @returns {IRecipe} The recipe this ingredient belongs to.
    */
-  get recipeId(): string {
-    return this._recipeId;
+  get recipe(): IRecipe {
+    return this._recipe;
   }
 
   /**
@@ -69,14 +70,5 @@ export class Ingredient implements IIngredient {
    */
   set abv(abv: number) {
     this._abv = abv;
-  }
-
-  /**
-   * @description Finds a local source where this ingredient can be purchased.
-   * @returns {string} The name or location of a local source for this ingredient.
-   */
-  findLocalSource(): string {
-    // Placeholder implementation
-    return "Local store";
   }
 }

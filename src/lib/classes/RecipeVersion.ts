@@ -4,6 +4,7 @@ import { TasteProfile } from "../enums/TasteProfile";
 import { Visibility } from "../enums/Visibility";
 import IIngredient from "../interfaces/IIngredient";
 import IStep from "../interfaces/IStep";
+import IUser from "../interfaces/IUser";
 
 /**
  * @class RecipeVersion
@@ -16,7 +17,7 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
 
   /**
    * @constructor
-   * @param {string} creatorUserId - The ID of the creator of the recipe.
+   * @param {IUser} creator - The creator of the recipe.
    * @param {string} title - The title of the recipe.
    * @param {TasteProfile[]} tasteProfiles - The taste profiles of the recipe.
    * @param {Visibility} visibility - The visibility setting of the recipe.
@@ -28,7 +29,7 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
    * @param {IStep[]} [steps=[]] - The steps of the recipe.
    */
   constructor(
-    creatorUserId: string,
+    creator: IUser,
     title: string,
     tasteProfiles: TasteProfile[],
     visibility: Visibility,
@@ -39,17 +40,7 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
     ingredients: IIngredient[] = [],
     steps: IStep[] = []
   ) {
-    super(
-      creatorUserId,
-      title,
-      tasteProfiles,
-      visibility,
-      timeCreated,
-      description,
-      timeLastUpdated,
-      ingredients,
-      steps
-    );
+    super(creator, title, tasteProfiles, visibility, timeCreated, description, timeLastUpdated, ingredients, steps);
     this._versionNumber = versionNumber;
   }
 

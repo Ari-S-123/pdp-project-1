@@ -1,4 +1,6 @@
 import IFavorite from "../interfaces/IFavorite";
+import IRecipe from "../interfaces/IRecipe";
+import IUser from "../interfaces/IUser";
 
 /**
  * @class Favorite
@@ -6,34 +8,34 @@ import IFavorite from "../interfaces/IFavorite";
  * @description Implementation of a favorite relationship between a user and a recipe.
  */
 export class Favorite implements IFavorite {
-  private _recipeId: string;
-  private _userId: string;
+  private _recipe: IRecipe;
+  private _user: IUser;
   private _timeCreated: Date;
 
   /**
    * @constructor
-   * @param {string} recipeId - The ID of the recipe that was favorited.
-   * @param {string} userId - The ID of the user who favorited the recipe.
+   * @param {IRecipe} recipe - The recipe that was favorited.
+   * @param {IUser} user - The user who favorited the recipe.
    * @param {Date} timeCreated - The timestamp when the recipe was favorited.
    */
-  constructor(recipeId: string, userId: string, timeCreated: Date) {
-    this._recipeId = recipeId;
-    this._userId = userId;
+  constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
+    this._recipe = recipe;
+    this._user = user;
     this._timeCreated = timeCreated;
   }
 
   /**
-   * @returns {string} The ID of the recipe that was favorited.
+   * @returns {IRecipe} The recipe that was favorited.
    */
-  get recipeId(): string {
-    return this._recipeId;
+  get recipe(): IRecipe {
+    return this._recipe;
   }
 
   /**
-   * @returns {string} The ID of the user who favorited the recipe.
+   * @returns {IUser} The user who favorited the recipe.
    */
-  get userId(): string {
-    return this._userId;
+  get user(): IUser {
+    return this._user;
   }
 
   /**

@@ -1,8 +1,4 @@
 import IUser from "../interfaces/IUser";
-import IFriendRequest from "../interfaces/IFriendRequest";
-import IMessage from "../interfaces/IMessage";
-import IComment from "../interfaces/IComment";
-import IRecipe from "../interfaces/IRecipe";
 
 /**
  * @class User
@@ -21,17 +17,10 @@ export class User implements IUser {
   private _email: string;
   private _phoneNumber: string;
   private _profilePicUrl: string;
-  private _friendUserIds: string[];
-  private _friendRequests: IFriendRequest[];
-  private _messages: IMessage[];
-  private _comments: IComment[];
-  private _recipes: IRecipe[];
-  private _favoriteRecipes: IRecipe[];
-  private _likedRecipes: IRecipe[];
+  private _friends: IUser[];
 
   /**
    * @constructor
-   * @param {string} userId - The unique identifier of the user.
    * @param {string} username - The username of the user.
    * @param {string} password - The password of the user.
    * @param {boolean} is2FAEnabled - Whether two-factor authentication is enabled.
@@ -42,16 +31,9 @@ export class User implements IUser {
    * @param {string} email - The email address of the user.
    * @param {string} phoneNumber - The phone number of the user.
    * @param {string} profilePicUrl - The URL of the user's profile picture.
-   * @param {string[]} [friendUserIds=[]] - The IDs of the user's friends.
-   * @param {IFriendRequest[]} [friendRequests=[]] - The friend requests of the user.
-   * @param {IMessage[]} [messages=[]] - The messages of the user.
-   * @param {IComment[]} [comments=[]] - The comments made by the user.
-   * @param {IRecipe[]} [recipes=[]] - The recipes created by the user.
-   * @param {IRecipe[]} [favoriteRecipes=[]] - The recipes favorited by the user.
-   * @param {IRecipe[]} [likedRecipes=[]] - The recipes liked by the user.
+   * @param {IUser[]} [friends=[]] - The friends of the user.
    */
   constructor(
-    userId: string,
     username: string,
     password: string,
     is2FAEnabled: boolean,
@@ -62,15 +44,9 @@ export class User implements IUser {
     email: string,
     phoneNumber: string,
     profilePicUrl: string,
-    friendUserIds: string[] = [],
-    friendRequests: IFriendRequest[] = [],
-    messages: IMessage[] = [],
-    comments: IComment[] = [],
-    recipes: IRecipe[] = [],
-    favoriteRecipes: IRecipe[] = [],
-    likedRecipes: IRecipe[] = []
+    friends: IUser[] = []
   ) {
-    this._userId = userId;
+    this._userId = crypto.randomUUID();
     this._username = username;
     this._password = password;
     this._is2FAEnabled = is2FAEnabled;
@@ -81,13 +57,7 @@ export class User implements IUser {
     this._email = email;
     this._phoneNumber = phoneNumber;
     this._profilePicUrl = profilePicUrl;
-    this._friendUserIds = friendUserIds;
-    this._friendRequests = friendRequests;
-    this._messages = messages;
-    this._comments = comments;
-    this._recipes = recipes;
-    this._favoriteRecipes = favoriteRecipes;
-    this._likedRecipes = likedRecipes;
+    this._friends = friends;
   }
 
   /**
@@ -222,51 +192,25 @@ export class User implements IUser {
   }
 
   /**
-   * @returns {string[]} The IDs of the user's friends.
+   * @returns {IUser[]} The friends of the user.
    */
-  get friendUserIds(): string[] {
-    return this._friendUserIds;
+  get friends(): IUser[] {
+    return this._friends;
   }
 
   /**
-   * @returns {IFriendRequest[]} The friend requests of the user.
+   * @description Adds a friend to the user.
+   * @param {IUser} user The user to add as a friend.
    */
-  get friendRequests(): IFriendRequest[] {
-    return this._friendRequests;
+  public addFriend(user: IUser): void {
+    this._friends.push(user);
   }
 
   /**
-   * @returns {IMessage[]} The messages of the user.
+   * @description Removes a friend from the user.
+   * @param {IUser} user The user to remove as a friend.
    */
-  get messages(): IMessage[] {
-    return this._messages;
-  }
-
-  /**
-   * @returns {IComment[]} The comments made by the user.
-   */
-  get comments(): IComment[] {
-    return this._comments;
-  }
-
-  /**
-   * @returns {IRecipe[]} The recipes created by the user.
-   */
-  get recipes(): IRecipe[] {
-    return this._recipes;
-  }
-
-  /**
-   * @returns {IRecipe[]} The recipes favorited by the user.
-   */
-  get favoriteRecipes(): IRecipe[] {
-    return this._favoriteRecipes;
-  }
-
-  /**
-   * @returns {IRecipe[]} The recipes liked by the user.
-   */
-  get likedRecipes(): IRecipe[] {
-    return this._likedRecipes;
+  public removeFriend(user: IUser): void {
+    this._friends = this._friends.filter((friend) => friend.userId !== user.userId);
   }
 }
