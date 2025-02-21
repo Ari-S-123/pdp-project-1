@@ -55,6 +55,10 @@ To format:
 bun format
 ```
 
+## Project Proposal
+
+Refer to the [Project Proposal](./Project%20Proposal.md) document for more information on the project.
+
 ## UML Diagram
 
 [UML Diagram Link](https://lucid.app/lucidchart/004dfd0b-3b14-41e0-9959-1cfc2c77f47a/edit?invitationId=inv_5cd3057b-8dce-4686-86a1-56a751556329)
@@ -62,3 +66,15 @@ bun format
 ## UI Mockups
 
 [UI Mockups](https://www.figma.com/design/DVjv0IZhI7psUEEVeLe7ZK/MixSmart-UI-Mockups?node-id=0-1&t=rE2CcvRN7MfN6QE7-1)
+
+## OOP Usage
+
+Refer to the [OOP Usage](./OOP%20Usage.md) document for more information on the OOP principles used in this project.
+
+## Video
+
+Refer to this [video]TODO for a demo of the project.
+
+## AI Usage
+
+Refer to the [Project Proposal](./Project%20Proposal.md) document for more information on the AI usage in this project.
