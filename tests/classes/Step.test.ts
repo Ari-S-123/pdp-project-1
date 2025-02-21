@@ -11,7 +11,6 @@ describe("Step", () => {
     "testuser",
     "password123",
     false,
-    new Date("2024-02-21"),
     "12345",
     BiologicalSex.MALE,
     70,
@@ -25,7 +24,6 @@ describe("Step", () => {
     "Margarita",
     [TasteProfile.SOUR, TasteProfile.SWEET],
     Visibility.PUBLIC,
-    new Date("2024-02-21"),
     "Classic margarita recipe",
     new Date("2024-02-21")
   );
