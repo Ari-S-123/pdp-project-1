@@ -75,7 +75,7 @@ Refer to the [OOP Usage](./OOP%20Usage.md) document for more information on the 
 
 ## Video
 
-Refer to this [video]TODO for a demo of the project.
+Refer to this [video](https://youtu.be/HinoY3xhG4w) for a demo of the project.
 
 ## AI Usage
 
