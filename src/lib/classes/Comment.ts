@@ -8,10 +8,10 @@ import IUser from "../interfaces/IUser";
  * @description Implementation of a comment on a recipe.
  */
 export class Comment implements IComment {
-  private _recipe: IRecipe;
-  private _user: IUser;
+  private readonly _recipe: IRecipe;
+  private readonly _user: IUser;
   private _text: string;
-  private _timeCreated: Date;
+  private readonly _timeCreated: Date;
   private _timeLastEdited: Date;
 
   /**
@@ -19,14 +19,13 @@ export class Comment implements IComment {
    * @param {IRecipe} recipe - The recipe the comment belongs to.
    * @param {IUser} user - The user who made the comment.
    * @param {string} text - The content of the comment.
-   * @param {Date} timeCreated - The creation timestamp of the comment.
    * @param {Date} timeLastEdited - The timestamp of the last edit to the comment.
    */
-  public constructor(recipe: IRecipe, user: IUser, text: string, timeCreated: Date, timeLastEdited: Date) {
+  public constructor(recipe: IRecipe, user: IUser, text: string, timeLastEdited: Date) {
     this._recipe = recipe;
     this._user = user;
     this._text = text;
-    this._timeCreated = timeCreated;
+    this._timeCreated = new Date();
     this._timeLastEdited = timeLastEdited;
   }
 

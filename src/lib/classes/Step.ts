@@ -6,7 +6,7 @@ import IRecipe from "../interfaces/IRecipe";
  * @description Implementation of a step in a recipe's preparation instructions.
  */
 export class Step implements IStep {
-  private _recipe: IRecipe;
+  private readonly _recipe: IRecipe;
   private _stepNumber: number;
   private _description: string;
 

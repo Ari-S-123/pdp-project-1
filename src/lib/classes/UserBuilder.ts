@@ -9,7 +9,6 @@ export class UserBuilder {
   private _username: string;
   private _password: string;
   private _is2FAEnabled: boolean;
-  private _timeCreated: Date;
   private _zipCode?: string;
   private _biologicalSex?: BiologicalSex;
   private _weightInKg?: number;
@@ -23,7 +22,6 @@ export class UserBuilder {
     this._username = "";
     this._password = "";
     this._is2FAEnabled = false;
-    this._timeCreated = new Date();
     this._friends = [];
   }
 
@@ -57,18 +55,6 @@ export class UserBuilder {
    */
   public with2FAEnabled(is2FAEnabled: boolean): UserBuilder {
     this._is2FAEnabled = is2FAEnabled;
-    return this;
-  }
-
-  /**
-   * @param {Date} timeCreated The creation timestamp of the user account.
-   * @returns {UserBuilder} The builder instance for method chaining.
-   */
-  public withTimeCreated(timeCreated: Date): UserBuilder {
-    if (!timeCreated) {
-      throw new Error("No timestamp provided.");
-    }
-    this._timeCreated = timeCreated;
     return this;
   }
 
@@ -180,7 +166,6 @@ export class UserBuilder {
       this._username,
       this._password,
       this._is2FAEnabled,
-      this._timeCreated,
       this._zipCode || "",
       this._biologicalSex || undefined,
       this._weightInKg || 0,

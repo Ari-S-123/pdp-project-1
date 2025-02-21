@@ -13,7 +13,7 @@ import IUser from "../interfaces/IUser";
  * @description Implementation of a recipe version that extends the base recipe with version tracking.
  */
 export class RecipeVersion extends Recipe implements IRecipeVersion {
-  private _versionNumber: number;
+  private readonly _versionNumber: number;
 
   /**
    * @constructor
@@ -21,7 +21,6 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
    * @param {string} title - The title of the recipe.
    * @param {TasteProfile[]} tasteProfiles - The taste profiles of the recipe.
    * @param {Visibility} visibility - The visibility setting of the recipe.
-   * @param {Date} timeCreated - The creation timestamp of the recipe.
    * @param {string} description - The description of the recipe.
    * @param {Date} timeLastUpdated - The last update timestamp of the recipe.
    * @param {number} versionNumber - The version number of this recipe version.
@@ -33,14 +32,13 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
     title: string,
     tasteProfiles: TasteProfile[],
     visibility: Visibility,
-    timeCreated: Date,
     description: string,
     timeLastUpdated: Date,
     versionNumber: number,
     ingredients: IIngredient[] = [],
     steps: IStep[] = []
   ) {
-    super(creator, title, tasteProfiles, visibility, timeCreated, description, timeLastUpdated, ingredients, steps);
+    super(creator, title, tasteProfiles, visibility, description, timeLastUpdated, ingredients, steps);
     this._versionNumber = versionNumber;
   }
 

@@ -8,22 +8,21 @@ import IUser from "../interfaces/IUser";
  * @description Implementation of a friend request between users.
  */
 export class FriendRequest implements IFriendRequest {
-  private _senderUser: IUser;
-  private _receiverUser: IUser;
-  private _timeCreated: Date;
+  private readonly _senderUser: IUser;
+  private readonly _receiverUser: IUser;
+  private readonly _timeCreated: Date;
   private _status: FriendRequestStatus;
 
   /**
    * @constructor
    * @param {IUser} senderUser - The user who sent the friend request.
    * @param {IUser} receiverUser - The user who received the friend request.
-   * @param {Date} timeCreated - The creation timestamp of the friend request.
    * @param {FriendRequestStatus} status - The current status of the friend request.
    */
-  public constructor(senderUser: IUser, receiverUser: IUser, timeCreated: Date, status: FriendRequestStatus) {
+  public constructor(senderUser: IUser, receiverUser: IUser, status: FriendRequestStatus) {
     this._senderUser = senderUser;
     this._receiverUser = receiverUser;
-    this._timeCreated = timeCreated;
+    this._timeCreated = new Date();
     this._status = status;
   }
 

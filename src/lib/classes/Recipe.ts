@@ -12,15 +12,15 @@ import { BiologicalSex } from "../enums/BiologicalSex";
  * @description Implementation of a recipe with all its properties and methods.
  */
 export class Recipe implements IRecipe {
-  private _creator: IUser;
+  private readonly _creator: IUser;
   private _title: string;
   private _tasteProfiles: TasteProfile[];
   private _visibility: Visibility;
-  private _timeCreated: Date;
+  private readonly _timeCreated: Date;
   private _description?: string;
   private _timeLastUpdated: Date;
-  private _ingredients: IIngredient[];
-  private _steps: IStep[];
+  private _ingredients: IIngredient[] = [];
+  private _steps: IStep[] = [];
 
   /**
    * @constructor
@@ -28,7 +28,6 @@ export class Recipe implements IRecipe {
    * @param {string} title - The title of the recipe.
    * @param {TasteProfile[]} tasteProfiles - The taste profiles of the recipe.
    * @param {Visibility} visibility - The visibility setting of the recipe.
-   * @param {Date} timeCreated - The creation timestamp of the recipe.
    * @param {string} description - The description of the recipe.
    * @param {Date} timeLastUpdated - The last update timestamp of the recipe.
    * @param {IIngredient[]} [ingredients=[]] - The ingredients of the recipe.
@@ -39,7 +38,6 @@ export class Recipe implements IRecipe {
     title: string,
     tasteProfiles: TasteProfile[],
     visibility: Visibility,
-    timeCreated: Date,
     description: string,
     timeLastUpdated: Date,
     ingredients: IIngredient[] = [],
@@ -49,7 +47,7 @@ export class Recipe implements IRecipe {
     this._title = title;
     this._tasteProfiles = tasteProfiles;
     this._visibility = visibility;
-    this._timeCreated = timeCreated;
+    this._timeCreated = new Date();
     this._description = description;
     this._timeLastUpdated = timeLastUpdated;
     this._ingredients = ingredients;

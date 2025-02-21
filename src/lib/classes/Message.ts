@@ -7,7 +7,7 @@ import IUser from "../interfaces/IUser";
  */
 export class Message implements IMessage {
   private _text: string;
-  private _timeCreated: Date;
+  private readonly _timeCreated: Date;
   private _attachmentUrls: string[];
   private _sender: IUser;
   private _receiver: IUser;
@@ -17,7 +17,6 @@ export class Message implements IMessage {
   /**
    * @constructor
    * @param {string} text - The content of the message.
-   * @param {Date} timeCreated - The creation timestamp of the message.
    * @param {string[]} attachmentUrls - The URLs of any attachments to the message.
    * @param {IUser} sender - The user who sent the message.
    * @param {IUser} receiver - The user who received the message.
@@ -26,7 +25,6 @@ export class Message implements IMessage {
    */
   public constructor(
     text: string,
-    timeCreated: Date,
     attachmentUrls: string[],
     sender: IUser,
     receiver: IUser,
@@ -34,7 +32,7 @@ export class Message implements IMessage {
     timeLastEdited: Date
   ) {
     this._text = text;
-    this._timeCreated = timeCreated;
+    this._timeCreated = new Date();
     this._attachmentUrls = attachmentUrls;
     this._sender = sender;
     this._receiver = receiver;

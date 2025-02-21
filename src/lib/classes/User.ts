@@ -7,11 +7,11 @@ import IUser from "../interfaces/IUser";
  * @description Implementation of a user with all their properties and methods.
  */
 export class User implements IUser {
-  private _userId: string;
+  private readonly _userId: string;
   private _username: string;
   private _password: string;
   private _is2FAEnabled: boolean;
-  private _timeCreated: Date;
+  private readonly _timeCreated: Date;
   private _zipCode?: string;
   private _biologicalSex?: BiologicalSex;
   private _weightInKg?: number;
@@ -25,7 +25,6 @@ export class User implements IUser {
    * @param {string} username - The username of the user.
    * @param {string} password - The password of the user.
    * @param {boolean} is2FAEnabled - Whether two-factor authentication is enabled.
-   * @param {Date} timeCreated - The creation timestamp of the user account.
    * @param {string} zipCode - The zip code of the user's location.
    * @param {BiologicalSex} biologicalSex - The biological sex of the user.
    * @param {number} weightInKg - The weight of the user in kilograms.
@@ -38,7 +37,6 @@ export class User implements IUser {
     username: string,
     password: string,
     is2FAEnabled: boolean,
-    timeCreated: Date,
     zipCode: string,
     biologicalSex: BiologicalSex | undefined,
     weightInKg: number,
@@ -51,7 +49,7 @@ export class User implements IUser {
     this._username = username;
     this._password = password;
     this._is2FAEnabled = is2FAEnabled;
-    this._timeCreated = timeCreated;
+    this._timeCreated = new Date();
     this._zipCode = zipCode;
     this._biologicalSex = biologicalSex;
     this._weightInKg = weightInKg;

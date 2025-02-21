@@ -8,20 +8,19 @@ import IUser from "../interfaces/IUser";
  * @description Implementation of a like relationship between a user and a recipe.
  */
 export class Like implements ILike {
-  private _recipe: IRecipe;
-  private _user: IUser;
-  private _timeCreated: Date;
+  private readonly _recipe: IRecipe;
+  private readonly _user: IUser;
+  private readonly _timeCreated: Date;
 
   /**
    * @constructor
    * @param {IRecipe} recipe - The recipe that was liked.
    * @param {IUser} user - The user who liked the recipe.
-   * @param {Date} timeCreated - The timestamp when the recipe was liked.
    */
-  public constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
+  public constructor(recipe: IRecipe, user: IUser) {
     this._recipe = recipe;
     this._user = user;
-    this._timeCreated = timeCreated;
+    this._timeCreated = new Date();
   }
 
   /**

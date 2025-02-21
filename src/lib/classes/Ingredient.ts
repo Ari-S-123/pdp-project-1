@@ -7,7 +7,7 @@ import IRecipe from "../interfaces/IRecipe";
  * @description Implementation of an ingredient in a recipe.
  */
 export class Ingredient implements IIngredient {
-  private _recipe: IRecipe;
+  private readonly _recipe: IRecipe;
   private _name: string;
   private _volumeInMl: number;
   private _abv: number;
