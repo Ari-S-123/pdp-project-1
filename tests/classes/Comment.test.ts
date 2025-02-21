@@ -69,7 +69,7 @@ describe("Comment", () => {
 
   test("timeLastEdited setter throws error for invalid value", () => {
     expect(() => {
-      testComment.timeLastEdited = null as unknown as Date;
+      testComment.timeLastEdited = undefined as unknown as Date;
     }).toThrow("No timestamp provided.");
   });
 
@@ -79,7 +79,7 @@ describe("Comment", () => {
     }).toThrow("No text provided.");
 
     expect(() => {
-      testComment.timeLastEdited = null as unknown as Date;
+      testComment.timeLastEdited = undefined as unknown as Date;
     }).toThrow("No timestamp provided.");
   });
 

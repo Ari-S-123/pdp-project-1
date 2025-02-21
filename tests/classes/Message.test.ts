@@ -72,7 +72,7 @@ describe("Message", () => {
 
   test("timeLastEdited setter throws error for invalid value", () => {
     expect(() => {
-      testMessage.timeLastEdited = null as unknown as Date;
+      testMessage.timeLastEdited = undefined as unknown as Date;
     }).toThrow("No timestamp provided.");
   });
 
@@ -82,7 +82,7 @@ describe("Message", () => {
     }).toThrow("No text provided.");
 
     expect(() => {
-      testMessage.timeLastEdited = null as unknown as Date;
+      testMessage.timeLastEdited = undefined as unknown as Date;
     }).toThrow("No timestamp provided.");
   });
 

@@ -50,13 +50,13 @@ describe("FriendRequest", () => {
 
   test("status setter throws error for invalid value", () => {
     expect(() => {
-      testFriendRequest.status = null as unknown as FriendRequestStatus;
+      testFriendRequest.status = undefined as unknown as FriendRequestStatus;
     }).toThrow("No status provided.");
   });
 
   test("friend request properties throw errors for invalid updates", () => {
     expect(() => {
-      testFriendRequest.status = null as unknown as FriendRequestStatus;
+      testFriendRequest.status = undefined as unknown as FriendRequestStatus;
     }).toThrow("No status provided.");
   });
 
