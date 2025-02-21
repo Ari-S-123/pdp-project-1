@@ -2,6 +2,8 @@
 
 MixSmart is a new cocktail recipe platform that combines advanced AI-powered generation tools with social sharing features, giving users a creative yet controlled environment to craft, discover, and personalize their favorite drinks. Catering to cocktail enthusiasts (age 21 or above) who value customization and community, MixSmart places each user at the center of their experience. By weaving AI innovation and social discovery into a curated experience, MixSmart empowers cocktail lovers to create, refine, and share recipes in a platform that balances creativity with control—making it the ideal digital companion for everyone from casual sippers to dedicated mixologists.
 
+Note: The original repo was created on 2025-02-12. I deleted it and recreated it on 2025-02-18 which is why the first commit was made on 2025-02-18. But the project proposal was uploaded to the original repo on 2025-02-12.
+
 ## TODO
 
 - [x] Properly implement BAC calculation
