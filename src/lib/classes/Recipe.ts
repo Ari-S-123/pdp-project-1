@@ -164,9 +164,7 @@ export class Recipe implements IRecipe {
    * @returns {number} The calculated BAC value.
    */
   public calculateBAC(user: IUser): number {
-    const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
-      return acc + ingredient.volumeInMl * ingredient.abv;
-    }, 0);
+    const doseInGrams = this.ingredients.reduce((acc, ingredient) => acc + ingredient.volumeInMl * ingredient.abv, 0); // Accidental functional programming
     const bodyWeightInGrams = user.weightInKg * 1000;
     const distributionRatio = user.biologicalSex === BiologicalSex.MALE ? 0.68 : 0.55;
     return (doseInGrams / (bodyWeightInGrams * distributionRatio)) * 100 * -0.016;
