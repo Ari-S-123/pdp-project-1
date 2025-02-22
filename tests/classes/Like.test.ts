@@ -45,6 +45,9 @@ describe("Like", () => {
   test("constructor creates like with correct properties", () => {
     expect(testLike.recipe).toBe(recipe);
     expect(testLike.user).toBe(liker);
+
+    expect(() => new Like(undefined as unknown as Recipe, liker)).toThrow("Recipe is not set");
+    expect(() => new Like(recipe, undefined as unknown as User)).toThrow("User is not set");
   });
 
   test("all properties are immutable", () => {

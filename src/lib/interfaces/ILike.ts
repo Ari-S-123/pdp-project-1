@@ -1,5 +1,5 @@
-import IRecipe from "./IRecipe";
-import IUser from "./IUser";
+import type IRecipe from "./IRecipe";
+import type IUser from "./IUser";
 
 /**
  * @interface ILike

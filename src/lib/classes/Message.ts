@@ -1,5 +1,5 @@
-import IMessage from "../interfaces/IMessage";
-import IUser from "../interfaces/IUser";
+import type IMessage from "../interfaces/IMessage";
+import type IUser from "../interfaces/IUser";
 /**
  * @class Message
  * @implements {IMessage}
@@ -20,24 +20,27 @@ export class Message implements IMessage {
    * @param {string[]} attachmentUrls - The URLs of any attachments to the message.
    * @param {IUser} sender - The user who sent the message.
    * @param {IUser} receiver - The user who received the message.
-   * @param {boolean} isRead - Whether the message has been read by the receiver.
-   * @param {Date} timeLastEdited - The timestamp of the last edit to the message.
    */
-  public constructor(
-    text: string,
-    attachmentUrls: string[],
-    sender: IUser,
-    receiver: IUser,
-    isRead: boolean,
-    timeLastEdited: Date
-  ) {
+  public constructor(text: string, attachmentUrls: string[], sender: IUser, receiver: IUser) {
+    if (!text) {
+      throw new Error("Text is not set");
+    }
+    if (!attachmentUrls) {
+      throw new Error("Attachment URLs are not set");
+    }
+    if (!sender) {
+      throw new Error("Sender is not set");
+    }
+    if (!receiver) {
+      throw new Error("Receiver is not set");
+    }
     this._text = text;
     this._timeCreated = new Date();
     this._attachmentUrls = attachmentUrls;
     this._sender = sender;
     this._receiver = receiver;
-    this._isRead = isRead;
-    this._timeLastEdited = timeLastEdited;
+    this._isRead = false;
+    this._timeLastEdited = this._timeCreated;
   }
 
   /**
@@ -95,6 +98,13 @@ export class Message implements IMessage {
    */
   public get isRead(): boolean {
     return this._isRead;
+  }
+
+  /**
+   * @param {boolean} isRead The new value for whether the message has been read by the receiver.
+   */
+  public set isRead(isRead: boolean) {
+    this._isRead = isRead;
   }
 
   /**

@@ -1,6 +1,6 @@
-import ILike from "../interfaces/ILike";
-import IRecipe from "../interfaces/IRecipe";
-import IUser from "../interfaces/IUser";
+import type ILike from "../interfaces/ILike";
+import type IRecipe from "../interfaces/IRecipe";
+import type IUser from "../interfaces/IUser";
 
 /**
  * @class Like
@@ -18,6 +18,12 @@ export class Like implements ILike {
    * @param {IUser} user - The user who liked the recipe.
    */
   public constructor(recipe: IRecipe, user: IUser) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
     this._recipe = recipe;
     this._user = user;
     this._timeCreated = new Date();

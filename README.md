@@ -21,6 +21,12 @@ These would be hard for other people to test locally without having to expose my
 - AI recipe generation with Gemini API
 - Restful endpoints with hono and persistence layer with drizzle and postgres
 
+## Post-Deadline Changes
+
+- Added missing setter
+- More input validation
+- Updated tests
+
 ## Setup
 
 1. Clone Repo

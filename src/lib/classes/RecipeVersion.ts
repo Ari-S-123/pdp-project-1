@@ -1,10 +1,10 @@
 import { Recipe } from "./Recipe";
-import IRecipeVersion from "../interfaces/IRecipeVersion";
-import { TasteProfile } from "../enums/TasteProfile";
-import { Visibility } from "../enums/Visibility";
-import IIngredient from "../interfaces/IIngredient";
-import IStep from "../interfaces/IStep";
-import IUser from "../interfaces/IUser";
+import type IRecipeVersion from "../interfaces/IRecipeVersion";
+import type { TasteProfile } from "../enums/TasteProfile";
+import type { Visibility } from "../enums/Visibility";
+import type IIngredient from "../interfaces/IIngredient";
+import type IStep from "../interfaces/IStep";
+import type IUser from "../interfaces/IUser";
 
 /**
  * @class RecipeVersion
@@ -39,6 +39,9 @@ export class RecipeVersion extends Recipe implements IRecipeVersion {
     steps: IStep[] = []
   ) {
     super(creator, title, tasteProfiles, visibility, description, timeLastUpdated, ingredients, steps);
+    if (versionNumber <= 0) {
+      throw new Error("Version number must be greater than 0");
+    }
     this._versionNumber = versionNumber;
   }
 

@@ -45,6 +45,9 @@ describe("Favorite", () => {
   test("constructor creates favorite with correct properties", () => {
     expect(testFavorite.recipe).toBe(recipe);
     expect(testFavorite.user).toBe(favoriter);
+
+    expect(() => new Favorite(undefined as unknown as Recipe, favoriter)).toThrow("Recipe is not set");
+    expect(() => new Favorite(recipe, undefined as unknown as User)).toThrow("User is not set");
   });
 
   test("all properties are immutable", () => {

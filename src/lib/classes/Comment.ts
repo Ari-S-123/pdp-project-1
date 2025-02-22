@@ -1,6 +1,6 @@
-import IComment from "../interfaces/IComment";
-import IRecipe from "../interfaces/IRecipe";
-import IUser from "../interfaces/IUser";
+import type IComment from "../interfaces/IComment";
+import type IRecipe from "../interfaces/IRecipe";
+import type IUser from "../interfaces/IUser";
 
 /**
  * @class Comment
@@ -19,14 +19,22 @@ export class Comment implements IComment {
    * @param {IRecipe} recipe - The recipe the comment belongs to.
    * @param {IUser} user - The user who made the comment.
    * @param {string} text - The content of the comment.
-   * @param {Date} timeLastEdited - The timestamp of the last edit to the comment.
    */
-  public constructor(recipe: IRecipe, user: IUser, text: string, timeLastEdited: Date) {
+  public constructor(recipe: IRecipe, user: IUser, text: string) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
+    if (!text) {
+      throw new Error("Text is not set");
+    }
     this._recipe = recipe;
     this._user = user;
     this._text = text;
     this._timeCreated = new Date();
-    this._timeLastEdited = timeLastEdited;
+    this._timeLastEdited = this._timeCreated;
   }
 
   /**

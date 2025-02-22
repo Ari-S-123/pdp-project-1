@@ -1,4 +1,4 @@
-import { BiologicalSex } from "../enums/BiologicalSex";
+import type { BiologicalSex } from "../enums/BiologicalSex";
 
 /**
  * @interface IUser

@@ -1,6 +1,6 @@
-import IFavorite from "../interfaces/IFavorite";
-import IRecipe from "../interfaces/IRecipe";
-import IUser from "../interfaces/IUser";
+import type IFavorite from "../interfaces/IFavorite";
+import type IRecipe from "../interfaces/IRecipe";
+import type IUser from "../interfaces/IUser";
 
 /**
  * @class Favorite
@@ -18,6 +18,12 @@ export class Favorite implements IFavorite {
    * @param {IUser} user - The user who favorited the recipe.
    */
   public constructor(recipe: IRecipe, user: IUser) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
     this._recipe = recipe;
     this._user = user;
     this._timeCreated = new Date();

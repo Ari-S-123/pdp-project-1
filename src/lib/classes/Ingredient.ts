@@ -1,5 +1,5 @@
-import IIngredient from "../interfaces/IIngredient";
-import IRecipe from "../interfaces/IRecipe";
+import type IIngredient from "../interfaces/IIngredient";
+import type IRecipe from "../interfaces/IRecipe";
 
 /**
  * @class Ingredient
@@ -20,6 +20,18 @@ export class Ingredient implements IIngredient {
    * @param {number} abv - The alcohol by volume percentage of the ingredient.
    */
   public constructor(recipe: IRecipe, name: string, volumeInMl: number, abv: number) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!name) {
+      throw new Error("Name is not set");
+    }
+    if (volumeInMl < 0) {
+      throw new Error("Volume in milliliters cannot be negative.");
+    }
+    if (abv < 0 || abv > 100) {
+      throw new Error("Invalid alcohol by volume percentage.");
+    }
     this._recipe = recipe;
     this._name = name;
     this._volumeInMl = volumeInMl;

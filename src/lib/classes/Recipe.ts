@@ -1,9 +1,9 @@
-import IRecipe from "../interfaces/IRecipe";
-import IIngredient from "../interfaces/IIngredient";
-import IStep from "../interfaces/IStep";
+import type IRecipe from "../interfaces/IRecipe";
+import type IIngredient from "../interfaces/IIngredient";
+import type IStep from "../interfaces/IStep";
 import { TasteProfile } from "../enums/TasteProfile";
 import { Visibility } from "../enums/Visibility";
-import IUser from "../interfaces/IUser";
+import type IUser from "../interfaces/IUser";
 import { BiologicalSex } from "../enums/BiologicalSex";
 
 /**
@@ -43,6 +43,12 @@ export class Recipe implements IRecipe {
     ingredients: IIngredient[] = [],
     steps: IStep[] = []
   ) {
+    if (!creator) {
+      throw new Error("Creator is not set");
+    }
+    if (!title) {
+      throw new Error("Title is not set");
+    }
     this._creator = creator;
     this._title = title;
     this._tasteProfiles = tasteProfiles;
@@ -71,6 +77,9 @@ export class Recipe implements IRecipe {
    * @param {string} title The new title of the recipe.
    */
   public set title(title: string) {
+    if (!title) {
+      throw new Error("Title is not set");
+    }
     this._title = title;
   }
 
@@ -133,6 +142,9 @@ export class Recipe implements IRecipe {
    * @param {Date} timeLastUpdated The new last update timestamp of the recipe.
    */
   public set timeLastUpdated(timeLastUpdated: Date) {
+    if (!timeLastUpdated) {
+      throw new Error("Invalid time last updated");
+    }
     this._timeLastUpdated = timeLastUpdated;
   }
 
@@ -141,6 +153,24 @@ export class Recipe implements IRecipe {
    */
   public get ingredients(): IIngredient[] {
     return this._ingredients;
+  }
+
+  /**
+   * @description Sets the ingredients of the recipe.
+   * @param {IIngredient[]} ingredients The ingredients of the recipe.
+   */
+  public set ingredients(ingredients: IIngredient[]) {
+    // Check if ingredients have duplicate ingredient names
+    const ingredientNames = ingredients.map((ingredient) => ingredient.name);
+    const uniqueIngredientNames = new Set(ingredientNames);
+    if (ingredientNames.length !== uniqueIngredientNames.size) {
+      throw new Error("Ingredients have duplicate names");
+    }
+    // Check if there are a minimum of 2 ingredients
+    if (ingredients.length < 2) {
+      throw new Error("There must be at least 2 ingredients");
+    }
+    this._ingredients = ingredients;
   }
 
   /**

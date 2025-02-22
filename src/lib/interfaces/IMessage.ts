@@ -1,4 +1,4 @@
-import IUser from "./IUser";
+import type IUser from "./IUser";
 
 /**
  * @interface IMessage
@@ -34,6 +34,11 @@ export default interface IMessage {
    * @returns {boolean} Whether the message is read by the receiver.
    */
   get isRead(): boolean;
+
+  /**
+   * @param {boolean} isRead The new value for whether the message is read by the receiver.
+   */
+  set isRead(isRead: boolean);
 
   /**
    * @returns {Date} The date and time the message was last edited.

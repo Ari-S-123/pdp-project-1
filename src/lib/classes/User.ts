@@ -1,5 +1,5 @@
-import { BiologicalSex } from "../enums/BiologicalSex";
-import IUser from "../interfaces/IUser";
+import type { BiologicalSex } from "../enums/BiologicalSex";
+import type IUser from "../interfaces/IUser";
 
 /**
  * @class User
@@ -45,6 +45,12 @@ export class User implements IUser {
     profilePicUrl: string,
     friends: IUser[] = []
   ) {
+    if (!username) {
+      throw new Error("Username is not set");
+    }
+    if (!password) {
+      throw new Error("Password is not set");
+    }
     this._userId = crypto.randomUUID();
     this._username = username;
     this._password = password;
@@ -76,6 +82,9 @@ export class User implements IUser {
    * @param {string} username The new username of the user.
    */
   public set username(username: string) {
+    if (!username) {
+      throw new Error("Username is required");
+    }
     this._username = username;
   }
 
@@ -89,6 +98,9 @@ export class User implements IUser {
    * @param {string} password The new password of the user.
    */
   public set password(password: string) {
+    if (!password) {
+      throw new Error("Password is required");
+    }
     this._password = password;
   }
 

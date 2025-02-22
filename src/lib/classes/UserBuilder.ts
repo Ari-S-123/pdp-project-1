@@ -1,4 +1,4 @@
-import IUser from "../interfaces/IUser";
+import type IUser from "../interfaces/IUser";
 import { User } from "./User";
 import { BiologicalSex } from "../enums/BiologicalSex";
 /**

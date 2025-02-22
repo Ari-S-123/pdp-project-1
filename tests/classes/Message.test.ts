@@ -28,15 +28,7 @@ describe("Message", () => {
     "https://example.com/receiver.jpg"
   );
 
-  const timeLastEdited = new Date("2024-02-21T10:00:00Z");
-  const testMessage = new Message(
-    "Hello, would you like to share recipes?",
-    [],
-    sender,
-    receiver,
-    false,
-    timeLastEdited
-  );
+  const testMessage = new Message("Hello, would you like to share recipes?", [], sender, receiver);
 
   test("constructor creates message with correct properties", () => {
     expect(testMessage.text).toBe("Hello, would you like to share recipes?");
@@ -44,7 +36,15 @@ describe("Message", () => {
     expect(testMessage.sender).toBe(sender);
     expect(testMessage.receiver).toBe(receiver);
     expect(testMessage.isRead).toBe(false);
-    expect(testMessage.timeLastEdited).toEqual(timeLastEdited);
+    expect(testMessage.timeLastEdited).toEqual(testMessage.timeCreated);
+
+    expect(() => new Message("", [], sender, receiver)).toThrow("Text is not set");
+    expect(
+      () => new Message("Hello, would you like to share recipes?", [], undefined as unknown as User, receiver)
+    ).toThrow("Sender is not set");
+    expect(
+      () => new Message("Hello, would you like to share recipes?", [], sender, undefined as unknown as User)
+    ).toThrow("Receiver is not set");
   });
 
   test("text setter updates property correctly", () => {
@@ -98,12 +98,11 @@ describe("Message", () => {
     expect(Object.getOwnPropertyDescriptor(Message.prototype, "receiver")?.set).toBeUndefined();
   });
 
-  test("timeCreated and isRead are immutable", () => {
-    const messageIsRead = testMessage.isRead;
-    expect(messageIsRead).toBe(false);
+  test("timeCreated is immutable", () => {
+    const messageTimeCreated = testMessage.timeCreated;
+    expect(messageTimeCreated).toEqual(testMessage.timeCreated);
 
-    // Verify that timeCreated and isRead are readonly by checking that there are no setters
+    // Verify that timeCreated is readonly by checking that there are no setters
     expect(Object.getOwnPropertyDescriptor(Message.prototype, "timeCreated")?.set).toBeUndefined();
-    expect(Object.getOwnPropertyDescriptor(Message.prototype, "isRead")?.set).toBeUndefined();
   });
 });

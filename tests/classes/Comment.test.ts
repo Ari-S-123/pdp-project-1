@@ -40,14 +40,21 @@ describe("Comment", () => {
     new Date("2024-02-21")
   );
 
-  const timeLastEdited = new Date("2024-02-21T10:00:00Z");
-  const testComment = new Comment(recipe, commenter, "Great recipe! I love the balance of flavors.", timeLastEdited);
+  const testComment = new Comment(recipe, commenter, "Great recipe! I love the balance of flavors.");
 
   test("constructor creates comment with correct properties", () => {
     expect(testComment.recipe).toBe(recipe);
     expect(testComment.user).toBe(commenter);
     expect(testComment.text).toBe("Great recipe! I love the balance of flavors.");
-    expect(testComment.timeLastEdited).toEqual(timeLastEdited);
+    expect(testComment.timeLastEdited).toEqual(testComment.timeCreated);
+
+    expect(
+      () => new Comment(undefined as unknown as Recipe, commenter, "Great recipe! I love the balance of flavors.")
+    ).toThrow("Recipe is not set");
+    expect(
+      () => new Comment(recipe, undefined as unknown as User, "Great recipe! I love the balance of flavors.")
+    ).toThrow("User is not set");
+    expect(() => new Comment(recipe, commenter, "")).toThrow("Text is not set");
   });
 
   test("text setter updates property correctly", () => {

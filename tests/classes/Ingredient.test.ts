@@ -35,6 +35,12 @@ describe("Ingredient", () => {
     expect(testIngredient.name).toBe("Tequila");
     expect(testIngredient.volumeInMl).toBe(60);
     expect(testIngredient.abv).toBe(40);
+
+    expect(() => new Ingredient(undefined as unknown as Recipe, "Tequila", 60, 40)).toThrow("Recipe is not set");
+    expect(() => new Ingredient(recipe, "", 60, 40)).toThrow("Name is not set");
+    expect(() => new Ingredient(recipe, "Tequila", -1, 40)).toThrow("Volume in milliliters cannot be negative.");
+    expect(() => new Ingredient(recipe, "Tequila", 60, -1)).toThrow("Invalid alcohol by volume percentage.");
+    expect(() => new Ingredient(recipe, "Tequila", 60, 101)).toThrow("Invalid alcohol by volume percentage.");
   });
 
   test("setters update properties correctly", () => {

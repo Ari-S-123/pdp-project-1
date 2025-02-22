@@ -38,6 +38,35 @@ describe("User", () => {
     expect(testUser.phoneNumber).toBe("123-456-7890");
     expect(testUser.profilePicUrl).toBe("https://example.com/profile.jpg");
     expect(testUser.friends).toEqual([]);
+
+    expect(
+      () =>
+        new User(
+          "",
+          "password123",
+          false,
+          "12345",
+          BiologicalSex.MALE,
+          70,
+          "test@example.com",
+          "123-456-7890",
+          "https://example.com/profile.jpg"
+        )
+    ).toThrow("Username is not set");
+    expect(
+      () =>
+        new User(
+          "testuser",
+          "",
+          false,
+          "12345",
+          BiologicalSex.MALE,
+          70,
+          "test@example.com",
+          "123-456-7890",
+          "https://example.com/profile.jpg"
+        )
+    ).toThrow("Password is not set");
   });
 
   test("userId is generated and unique", () => {
@@ -61,8 +90,12 @@ describe("User", () => {
     testUser.username = "newusername";
     expect(testUser.username).toBe("newusername");
 
+    expect(() => (testUser.username = "")).toThrow("Username is required");
+
     testUser.password = "newpassword";
     expect(testUser.password).toBe("newpassword");
+
+    expect(() => (testUser.password = "")).toThrow("Password is required");
 
     testUser.is2FAEnabled = true;
     expect(testUser.is2FAEnabled).toBe(true);

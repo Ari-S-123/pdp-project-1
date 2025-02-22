@@ -1,5 +1,5 @@
-import IStep from "../interfaces/IStep";
-import IRecipe from "../interfaces/IRecipe";
+import type IStep from "../interfaces/IStep";
+import type IRecipe from "../interfaces/IRecipe";
 /**
  * @class Step
  * @implements {IStep}
@@ -7,7 +7,7 @@ import IRecipe from "../interfaces/IRecipe";
  */
 export class Step implements IStep {
   private readonly _recipe: IRecipe;
-  private _stepNumber: number;
+  private readonly _stepNumber: number;
   private _description: string;
 
   /**
@@ -17,6 +17,15 @@ export class Step implements IStep {
    * @param {string} description - The description of what to do in this step.
    */
   public constructor(recipe: IRecipe, stepNumber: number, description: string) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!description) {
+      throw new Error("Description is not set");
+    }
+    if (stepNumber <= 0) {
+      throw new Error("Step number must be greater than 0");
+    }
     this._recipe = recipe;
     this._stepNumber = stepNumber;
     this._description = description;

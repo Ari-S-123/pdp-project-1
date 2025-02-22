@@ -34,6 +34,10 @@ describe("Step", () => {
     expect(testStep.recipe).toBe(recipe);
     expect(testStep.stepNumber).toBe(1);
     expect(testStep.description).toBe("Rim glass with salt");
+
+    expect(() => new Step(undefined as unknown as Recipe, 1, "Rim glass with salt")).toThrow("Recipe is not set");
+    expect(() => new Step(recipe, 0, "Rim glass with salt")).toThrow("Step number must be greater than 0");
+    expect(() => new Step(recipe, 1, "")).toThrow("Description is not set");
   });
 
   test("description setter updates property correctly", () => {

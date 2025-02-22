@@ -1,5 +1,5 @@
-import { FriendRequestStatus } from "../enums/FriendRequestStatus";
-import IUser from "./IUser";
+import type { FriendRequestStatus } from "../enums/FriendRequestStatus";
+import type IUser from "./IUser";
 
 /**
  * @interface IFriendRequest

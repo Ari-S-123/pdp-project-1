@@ -1,6 +1,6 @@
-import IFriendRequest from "../interfaces/IFriendRequest";
-import { FriendRequestStatus } from "../enums/FriendRequestStatus";
-import IUser from "../interfaces/IUser";
+import type IFriendRequest from "../interfaces/IFriendRequest";
+import type { FriendRequestStatus } from "../enums/FriendRequestStatus";
+import type IUser from "../interfaces/IUser";
 
 /**
  * @class FriendRequest
@@ -20,6 +20,15 @@ export class FriendRequest implements IFriendRequest {
    * @param {FriendRequestStatus} status - The current status of the friend request.
    */
   public constructor(senderUser: IUser, receiverUser: IUser, status: FriendRequestStatus) {
+    if (!senderUser) {
+      throw new Error("Sender user is not set");
+    }
+    if (!receiverUser) {
+      throw new Error("Receiver user is not set");
+    }
+    if (!status) {
+      throw new Error("Status is not set");
+    }
     this._senderUser = senderUser;
     this._receiverUser = receiverUser;
     this._timeCreated = new Date();

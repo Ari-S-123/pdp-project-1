@@ -38,6 +38,29 @@ describe("Recipe", () => {
     expect(testRecipe.timeLastUpdated).toEqual(new Date("2024-02-21"));
     expect(testRecipe.ingredients).toEqual([]);
     expect(testRecipe.steps).toEqual([]);
+
+    expect(
+      () =>
+        new Recipe(
+          undefined as unknown as User,
+          "Margarita",
+          [TasteProfile.SOUR, TasteProfile.SWEET],
+          Visibility.PUBLIC,
+          "Classic margarita recipe",
+          new Date("2024-02-21")
+        )
+    ).toThrow("Creator is not set");
+    expect(
+      () =>
+        new Recipe(
+          creator,
+          "",
+          [TasteProfile.SOUR, TasteProfile.SWEET],
+          Visibility.PUBLIC,
+          "Classic margarita recipe",
+          new Date("2024-02-21")
+        )
+    ).toThrow("Title is not set");
   });
 
   test("setters update properties correctly", () => {
@@ -75,6 +98,11 @@ describe("Recipe", () => {
 
     expect(recipeWithIngredients.ingredients).toEqual([tequila, limeJuice, tripleSec]);
     expect(recipeWithIngredients.ingredients.length).toBe(3);
+
+    expect(() => (recipeWithIngredients.ingredients = [tequila])).toThrow("There must be at least 2 ingredients");
+    expect(() => (recipeWithIngredients.ingredients = [tequila, limeJuice, limeJuice])).toThrow(
+      "Ingredients have duplicate names"
+    );
   });
 
   test("steps management works correctly", () => {

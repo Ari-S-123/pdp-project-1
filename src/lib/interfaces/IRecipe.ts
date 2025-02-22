@@ -1,8 +1,8 @@
 import { TasteProfile } from "../enums/TasteProfile";
 import { Visibility } from "../enums/Visibility";
-import IIngredient from "./IIngredient";
-import IStep from "./IStep";
-import IUser from "./IUser";
+import type IIngredient from "./IIngredient";
+import type IStep from "./IStep";
+import type IUser from "./IUser";
 
 /**
  * @interface IRecipe

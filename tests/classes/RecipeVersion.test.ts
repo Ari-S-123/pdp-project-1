@@ -40,6 +40,43 @@ describe("RecipeVersion", () => {
     expect(testRecipeVersion.ingredients).toEqual([]);
     expect(testRecipeVersion.steps).toEqual([]);
     expect(testRecipeVersion.versionNumber).toBe(1);
+
+    expect(
+      () =>
+        new RecipeVersion(
+          undefined as unknown as User,
+          "Margarita",
+          [TasteProfile.SOUR, TasteProfile.SWEET],
+          Visibility.PUBLIC,
+          "Classic margarita recipe",
+          new Date("2024-02-21"),
+          1
+        )
+    ).toThrow("Creator is not set");
+    expect(
+      () =>
+        new RecipeVersion(
+          creator,
+          "",
+          [TasteProfile.SOUR, TasteProfile.SWEET],
+          Visibility.PUBLIC,
+          "Classic margarita recipe",
+          new Date("2024-02-21"),
+          1
+        )
+    ).toThrow("Title is not set");
+    expect(
+      () =>
+        new RecipeVersion(
+          creator,
+          "Margarita",
+          [TasteProfile.SOUR, TasteProfile.SWEET],
+          Visibility.PUBLIC,
+          "Classic margarita recipe",
+          new Date("2024-02-21"),
+          0
+        )
+    ).toThrow("Version number must be greater than 0");
   });
 
   test("inherits recipe functionality", () => {
@@ -79,6 +116,11 @@ describe("RecipeVersion", () => {
 
     expect(versionWithIngredients.ingredients).toEqual([tequila, limeJuice, tripleSec]);
     expect(versionWithIngredients.ingredients.length).toBe(3);
+
+    expect(() => (versionWithIngredients.ingredients = [tequila])).toThrow("There must be at least 2 ingredients");
+    expect(() => (versionWithIngredients.ingredients = [tequila, limeJuice, limeJuice])).toThrow(
+      "Ingredients have duplicate names"
+    );
   });
 
   test("steps management works correctly", () => {

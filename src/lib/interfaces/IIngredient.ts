@@ -1,4 +1,4 @@
-import IRecipe from "./IRecipe";
+import type IRecipe from "./IRecipe";
 
 /**
  * @interface IIngredient

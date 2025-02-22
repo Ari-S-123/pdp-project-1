@@ -35,6 +35,16 @@ describe("FriendRequest", () => {
     expect(testFriendRequest.senderUser).toBe(sender);
     expect(testFriendRequest.receiverUser).toBe(receiver);
     expect(testFriendRequest.status).toBe(FriendRequestStatus.PENDING);
+
+    expect(() => new FriendRequest(undefined as unknown as User, receiver, FriendRequestStatus.PENDING)).toThrow(
+      "Sender user is not set"
+    );
+    expect(() => new FriendRequest(sender, undefined as unknown as User, FriendRequestStatus.PENDING)).toThrow(
+      "Receiver user is not set"
+    );
+    expect(() => new FriendRequest(sender, receiver, undefined as unknown as FriendRequestStatus)).toThrow(
+      "Status is not set"
+    );
   });
 
   test("status setter updates property correctly", () => {
