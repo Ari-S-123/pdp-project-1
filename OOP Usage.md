@@ -38,21 +38,33 @@ interface IRecipe {
 
 ### 2. Encapsulation
 
-Encapsulation is achieved through private fields and public getters/setters that control access to object properties.
+Encapsulation is achieved through private fields and public getters/setters that control access to object properties with proper validation.
 
 Example from `Ingredient` class:
 
 ```typescript
 export class Ingredient implements IIngredient {
-  private _recipe: IRecipe;
+  private readonly _recipe: IRecipe;
   private _name: string;
   private _volumeInMl: number;
   private _abv: number;
 
-  public set abv(abv: number) {
+  public constructor(recipe: IRecipe, name: string, volumeInMl: number, abv: number) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!name) {
+      throw new Error("Name is not set");
+    }
+    if (volumeInMl < 0) {
+      throw new Error("Volume in milliliters cannot be negative.");
+    }
     if (abv < 0 || abv > 100) {
       throw new Error("Invalid alcohol by volume percentage.");
     }
+    this._recipe = recipe;
+    this._name = name;
+    this._volumeInMl = volumeInMl;
     this._abv = abv;
   }
 
@@ -61,6 +73,13 @@ export class Ingredient implements IIngredient {
       throw new Error("Volume in milliliters cannot be negative.");
     }
     this._volumeInMl = volumeInMl;
+  }
+
+  public set abv(abv: number) {
+    if (abv < 0 || abv > 100) {
+      throw new Error("Invalid alcohol by volume percentage.");
+    }
+    this._abv = abv;
   }
 }
 ```
@@ -78,27 +97,29 @@ class Ingredient {
 
 ### 3. Inheritance
 
-Inheritance is used to extend base functionality while maintaining the "is-a" relationship.
+Inheritance is used to extend base functionality while maintaining the "is-a" relationship and proper validation.
 
 Example from `RecipeVersion` class:
 
 ```typescript
 export class RecipeVersion extends Recipe implements IRecipeVersion {
-  private _versionNumber: number;
+  private readonly _versionNumber: number;
 
   public constructor(
     creator: IUser,
     title: string,
     tasteProfiles: TasteProfile[],
     visibility: Visibility,
-    timeCreated: Date,
     description: string,
     timeLastUpdated: Date,
     versionNumber: number,
     ingredients: IIngredient[] = [],
     steps: IStep[] = []
   ) {
-    super(creator, title, tasteProfiles, visibility, timeCreated, description, timeLastUpdated, ingredients, steps);
+    super(creator, title, tasteProfiles, visibility, description, timeLastUpdated, ingredients, steps);
+    if (versionNumber <= 0) {
+      throw new Error("Version number must be greater than 0");
+    }
     this._versionNumber = versionNumber;
   }
 
@@ -126,15 +147,27 @@ class RecipeVersion extends Recipe {
 
 ### 4. Polymorphism
 
-Polymorphism is demonstrated through interface implementation across different classes.
+Polymorphism is demonstrated through interface implementation across different classes with proper validation.
 
 Example from multiple classes implementing social interactions:
 
 ```typescript
 export class Like implements ILike {
-  private _recipe: IRecipe;
-  private _user: IUser;
-  private _timeCreated: Date;
+  private readonly _recipe: IRecipe;
+  private readonly _user: IUser;
+  private readonly _timeCreated: Date;
+
+  public constructor(recipe: IRecipe, user: IUser) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
+    this._recipe = recipe;
+    this._user = user;
+    this._timeCreated = new Date();
+  }
 
   public get recipe(): IRecipe {
     return this._recipe;
@@ -146,18 +179,38 @@ export class Like implements ILike {
 }
 
 export class Comment implements IComment {
-  private _recipe: IRecipe;
-  private _user: IUser;
+  private readonly _recipe: IRecipe;
+  private readonly _user: IUser;
   private _text: string;
-  private _timeCreated: Date;
+  private readonly _timeCreated: Date;
   private _timeLastEdited: Date;
 
-  public get recipe(): IRecipe {
-    return this._recipe;
+  public constructor(recipe: IRecipe, user: IUser, text: string) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
+    if (!text) {
+      throw new Error("Text is not set");
+    }
+    this._recipe = recipe;
+    this._user = user;
+    this._text = text;
+    this._timeCreated = new Date();
+    this._timeLastEdited = this._timeCreated;
   }
 
-  public get timeCreated(): Date {
-    return this._timeCreated;
+  public get text(): string {
+    return this._text;
+  }
+
+  public set text(text: string) {
+    if (!text) {
+      throw new Error("No text provided.");
+    }
+    this._text = text;
   }
 }
 ```
@@ -182,20 +235,26 @@ class RecipeInteraction {
 
 ### 1. Single Responsibility Principle (SRP)
 
-Each class has a single, well-defined responsibility.
+Each class has a single, well-defined responsibility with proper validation.
 
 Example from `Like` class:
 
 ```typescript
 export class Like implements ILike {
-  private _recipe: IRecipe;
-  private _user: IUser;
-  private _timeCreated: Date;
+  private readonly _recipe: IRecipe;
+  private readonly _user: IUser;
+  private readonly _timeCreated: Date;
 
-  public constructor(recipe: IRecipe, user: IUser, timeCreated: Date) {
+  public constructor(recipe: IRecipe, user: IUser) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
     this._recipe = recipe;
     this._user = user;
-    this._timeCreated = timeCreated;
+    this._timeCreated = new Date();
   }
 
   public get recipe(): IRecipe {
@@ -242,7 +301,6 @@ export class Recipe implements IRecipe {
   public calculateBAC(user: IUser): number {
     const ethanolDensity = 0.78945;
     const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
-      // Convert ABV from percentage (e.g., 40) to a fraction (0.40)
       const alcoholMl = ingredient.volumeInMl * (ingredient.abv / 100);
       return acc + alcoholMl * ethanolDensity;
     }, 0);
@@ -254,9 +312,23 @@ export class Recipe implements IRecipe {
 
 export class RecipeVersion extends Recipe {
   // Inherits calculateBAC without changing its behavior
-  // Adds version tracking functionality
-  public get versionNumber(): number {
-    return this._versionNumber;
+  // Adds version tracking functionality with validation
+  public constructor(
+    creator: IUser,
+    title: string,
+    tasteProfiles: TasteProfile[],
+    visibility: Visibility,
+    description: string,
+    timeLastUpdated: Date,
+    versionNumber: number,
+    ingredients: IIngredient[] = [],
+    steps: IStep[] = []
+  ) {
+    super(creator, title, tasteProfiles, visibility, description, timeLastUpdated, ingredients, steps);
+    if (versionNumber <= 0) {
+      throw new Error("Version number must be greater than 0");
+    }
+    this._versionNumber = versionNumber;
   }
 }
 ```
@@ -298,13 +370,18 @@ export class Recipe implements IRecipe {
     title: string,
     tasteProfiles: TasteProfile[],
     visibility: Visibility,
-    timeCreated: Date,
     description: string,
     timeLastUpdated: Date,
     ingredients: IIngredient[] = [], // Depends on IIngredient interface
     steps: IStep[] = [] // Depends on IStep interface
   ) {
-    // Implementation
+    if (!creator) {
+      throw new Error("Creator is not set");
+    }
+    if (!title) {
+      throw new Error("Title is not set");
+    }
+    // ... other validation
   }
 }
 ```
@@ -341,16 +418,28 @@ export class UserBuilder {
     this._password = password;
     return this;
   }
-  // ... other builder methods ...
-}
 
-// Usage:
-const user = new UserBuilder()
-  .withUsername("john_doe")
-  .withPassword("secure123")
-  .with2FAEnabled(true)
-  .withEmail("john@example.com")
-  .build();
+  private validate(): void {
+    if (!this._username) throw new Error("Username is required");
+    if (!this._password) throw new Error("Password is required");
+  }
+
+  public build(): User {
+    this.validate();
+    return new User(
+      this._username,
+      this._password,
+      this._is2FAEnabled,
+      this._zipCode || "",
+      this._biologicalSex || undefined,
+      this._weightInKg || 0,
+      this._email || "",
+      this._phoneNumber || "",
+      this._profilePicUrl || "",
+      this._friends
+    );
+  }
+}
 ```
 
 This is good OOP because it:
@@ -393,6 +482,12 @@ export class Like implements ILike {
   private readonly _timeCreated: Date;
 
   public constructor(recipe: IRecipe, user: IUser) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
     this._recipe = recipe;
     this._user = user;
     this._timeCreated = new Date();
@@ -458,6 +553,24 @@ export class Recipe implements IRecipe {
 export class RecipeVersion extends Recipe {
   private readonly _versionNumber: number;
 
+  public constructor(
+    creator: IUser,
+    title: string,
+    tasteProfiles: TasteProfile[],
+    visibility: Visibility,
+    description: string,
+    timeLastUpdated: Date,
+    versionNumber: number,
+    ingredients: IIngredient[] = [],
+    steps: IStep[] = []
+  ) {
+    super(creator, title, tasteProfiles, visibility, description, timeLastUpdated, ingredients, steps);
+    if (versionNumber <= 0) {
+      throw new Error("Version number must be greater than 0");
+    }
+    this._versionNumber = versionNumber;
+  }
+
   public get versionNumber(): number {
     return this._versionNumber;
   }
@@ -499,18 +612,34 @@ export class Recipe implements IRecipe {
   private _ingredients: IIngredient[] = [];
   private _steps: IStep[] = [];
 
-  // State changes are exposed through getters/setters
+  // State changes are exposed through getters/setters with validation
   public set ingredients(ingredients: IIngredient[]) {
+    // Check if ingredients have duplicate ingredient names
+    const ingredientNames = ingredients.map((ingredient) => ingredient.name);
+    const uniqueIngredientNames = new Set(ingredientNames);
+    if (ingredientNames.length !== uniqueIngredientNames.size) {
+      throw new Error("Ingredients have duplicate names");
+    }
+    // Check if there are a minimum of 2 ingredients
+    if (ingredients.length < 2) {
+      throw new Error("There must be at least 2 ingredients");
+    }
     this._ingredients = ingredients;
   }
 }
 
-// Like acts as an observer
+// Like acts as an observer with proper validation
 export class Like implements ILike {
   private readonly _recipe: IRecipe;
   private readonly _timeCreated: Date;
 
   constructor(recipe: IRecipe, user: IUser) {
+    if (!recipe) {
+      throw new Error("Recipe is not set");
+    }
+    if (!user) {
+      throw new Error("User is not set");
+    }
     this._recipe = recipe;
     this._timeCreated = new Date();
   }
