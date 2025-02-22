@@ -200,6 +200,15 @@ export class Recipe implements IRecipe {
    * @returns {number} The calculated BAC value.
    */
   public calculateBAC(user: IUser): number {
+    if (!user) {
+      throw new Error("Invalid user");
+    }
+    if (!user.biologicalSex) {
+      throw new Error("User's biological sex is not set");
+    }
+    if (!user.weightInKg) {
+      throw new Error("User's weight is not set");
+    }
     const ethanolDensity = 0.78945;
     const doseInGrams = this.ingredients.reduce((acc, ingredient) => {
       // Convert ABV from percentage (e.g., 40) to a fraction (0.40)

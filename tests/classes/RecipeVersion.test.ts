@@ -6,19 +6,20 @@ import { TasteProfile } from "../../src/lib/enums/TasteProfile";
 import { Visibility } from "../../src/lib/enums/Visibility";
 import { Ingredient } from "../../src/lib/classes/Ingredient";
 import { Step } from "../../src/lib/classes/Step";
+import { UserBuilder } from "../../src/lib/classes/UserBuilder";
 
 describe("RecipeVersion", () => {
-  const creator = new User(
-    "creator",
-    "password123",
-    false,
-    "12345",
-    BiologicalSex.MALE,
-    70,
-    "creator@example.com",
-    "123-456-7890",
-    "https://example.com/creator.jpg"
-  );
+  const creator = new UserBuilder()
+    .withUsername("creator")
+    .withPassword("password123")
+    .with2FAEnabled(false)
+    .withZipCode("12345")
+    .withBiologicalSex(BiologicalSex.MALE)
+    .withWeightInKg(70)
+    .withEmail("creator@example.com")
+    .withPhoneNumber("123-456-7890")
+    .withProfilePicUrl("https://example.com/creator.jpg")
+    .build();
 
   const testRecipeVersion = new RecipeVersion(
     creator,
@@ -150,6 +151,32 @@ describe("RecipeVersion", () => {
 
     const bac = versionWithIngredients.calculateBAC(creator);
     expect(bac).toBeCloseTo(0.0398, 3);
+
+    // Test with user who doesn't have a biological sex
+    const userWithoutBiologicalSex = new UserBuilder()
+      .withUsername("userwithoutsex")
+      .withPassword("password123")
+      .with2FAEnabled(false)
+      .withZipCode("12345")
+      .withWeightInKg(70)
+      .withEmail("test@example.com")
+      .withPhoneNumber("123-456-7890")
+      .withProfilePicUrl("https://example.com/profile.jpg")
+      .build();
+    expect(() => versionWithIngredients.calculateBAC(userWithoutBiologicalSex)).toThrow("Biological sex is not set");
+
+    // Test with user who doesn't have a weight
+    const userWithoutWeight = new UserBuilder()
+      .withUsername("userwithoutweight")
+      .withPassword("password123")
+      .with2FAEnabled(false)
+      .withZipCode("12345")
+      .withBiologicalSex(BiologicalSex.MALE)
+      .withEmail("test@example.com")
+      .withPhoneNumber("123-456-7890")
+      .withProfilePicUrl("https://example.com/profile.jpg")
+      .build();
+    expect(() => versionWithIngredients.calculateBAC(userWithoutWeight)).toThrow("Weight in kilograms is not set");
   });
 
   test("version number is immutable", () => {
