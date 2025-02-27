@@ -65,7 +65,7 @@ bun format
 
 ## Project Proposal
 
-Refer to the [Project Proposal](./Project%20Proposal.md) document for more information on the project.
+Refer to the [Project Proposal](./MixSmart%20Spec%20Sheet%20-%20Aritra%20Saharay.pdf) document for more information on the project.
 
 ## UML Diagram
 
@@ -85,4 +85,4 @@ Refer to this [video](https://youtu.be/HinoY3xhG4w) for a demo of the project.
 
 ## AI Usage
 
-Refer to the [Project Proposal](./Project%20Proposal.md) document for more information on the AI usage in this project.
+Refer to the [Project Proposal](./MixSmart%20Spec%20Sheet%20-%20Aritra%20Saharay.pdf) document for more information on the AI usage in this project.
